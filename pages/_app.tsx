@@ -1,12 +1,15 @@
-import { Global } from '@emotion/react'
+import { Global, ThemeProvider } from '@emotion/react'
 import { AppProps } from 'next/app'
 import globalStyles from '../styles/global'
+import theme from '../styles/theme'
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <Global styles={globalStyles} />
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   )
 }
