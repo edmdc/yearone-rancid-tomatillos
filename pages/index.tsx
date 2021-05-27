@@ -3,14 +3,14 @@ import Header from '../components/layout/Header'
 import MoviesGrid from '../components/movies'
 import { Movie } from '../utils/tmdbClient'
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch('http://localhost:8080/api/movies')
   const data = await res.json()
   if (!data.results) {
     return {
       props: {
         movies: [],
-        error: data.errorMessage,
+        error: data.message,
       },
     }
   }
