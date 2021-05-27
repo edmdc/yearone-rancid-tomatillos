@@ -1,53 +1,53 @@
-import { css, useTheme } from '@emotion/react'
+import { css } from '@emotion/react'
 import theme from '../../styles/theme'
 
-export const RightChevron = () => {
-  const theme = useTheme()
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
+export const RightChevron = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    css={css`
+      height: 2.8rem;
+      width: 2.8rem;
+      position: absolute;
+      z-index: 20;
+      right: 1rem;
+      bottom: 0.75rem;
+    `}
+  >
+    <circle
+      cx="12"
+      cy="12"
+      r="10"
       css={css`
-        height: 2.8rem;
-        width: 2.8rem;
-        position: absolute;
-        z-index: 20;
-        right: 1rem;
-        bottom: 0.75rem;
+        fill: ${theme.colors.blue['500']};
+        opacity: 0.8;
+        backdrop-filter: blur(2px);
       `}
-    >
-      <circle
-        cx="12"
-        cy="12"
-        r="10"
-        css={css`
-          fill: ${theme.colors.blue['500']};
-          opacity: 0.8;
-          backdrop-filter: blur(2px);
-        `}
-      />
-      <path
-        css={css`
-          fill: ${theme.colors.blue['100']};
-        `}
-        d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
-      />
-    </svg>
-  )
-}
+    />
+    <path
+      css={css`
+        fill: ${theme.colors.blue['100']};
+      `}
+      d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
+    />
+  </svg>
+)
 
 const iconBaseStyles = css`
   margin: 0;
-  width: 2.8rem;
-  height: 2.8rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 5rem;
+  background-color: ${theme.colors.gray['600']};
+  padding: 0.4rem;
 `
 
 const iconColors = {
   primary: css`
-    fill: ${theme.colors.gray['200']};
+    fill: ${theme.colors.gray['50']};
   `,
   secondary: css`
-    fill: ${theme.colors.gray['400']};
+    fill: ${theme.colors.gray['200']};
   `,
 }
 
