@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   justify-content: start;
   background-color: white;
   padding-top: 3rem;
+  border-radius: 2.5rem;
 `
 // linearGradient id="linear-gradient" y1="66.7" x2="185.04" y2="66.7" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#90cea1"/><stop offset="0.56" stop-color="#3cbec9"/><stop offset="1" stop-color="#00b3e5"/></linearGradient>
 const Message = styled.p`
