@@ -29,14 +29,12 @@ export default class TmdbClient {
     })
   }
 
-  async getLatestReleases() {
+  async getTrendingMovies(req: NextApiRequest, res: NextApiResponse) {
     try {
-      const { data } = await this.client.get(
-        '/discover/movie?language=en-US&sort_by=release_date.desc',
-      )
-      return data
+      const { data } = await this.client.get('/trending/movie/day')
+      res.status(200).json(data)
     } catch (error) {
-      return error
+      res.status(error.response.status).json(error)
     }
   }
 
