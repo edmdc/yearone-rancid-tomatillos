@@ -7,6 +7,7 @@ export interface Movie {
   overview: string
   release_date: string
   genre_ids: number[]
+  genres: { id: number; name: string }[]
   id: number
   original_title: string
   original_language: string
@@ -16,6 +17,7 @@ export interface Movie {
   vote_count: number
   video: boolean
   vote_average: number
+  runtime: number
 }
 
 export default class TmdbClient {
