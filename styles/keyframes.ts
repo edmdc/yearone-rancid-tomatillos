@@ -35,15 +35,15 @@ export const slideUp = keyframes`
 
 export const slideDown = keyframes`
   from {
-    transform: traslateY(-3rem);
+    transform: scale(1.2) traslateY(-3rem);
     opacity: 0;
     color: ${theme.colors.gray['600']};
   }
 
-  30% {
+  35% {
     opacity: 1;
     color: ${theme.colors.gray['800']};
-    transform: translate3d(0);
+    transform: scale(1) translateY(0);
   }
 
   40%, 58%, 72% {
@@ -62,14 +62,33 @@ export const slideDown = keyframes`
   }
 
   90% {
-    transform: scale(0.95) translateY(2rem);
+    transform: scale(0.98) translateY(2rem);
     opacity: 0.8;
     color: ${theme.colors.gray['800']};
   }
 
+  95% {
+    transform: scale(0.95) translateY(3rem);
+    color: ${theme.colors.gray['300']};
+  }
+
   to {
-    transform: scale(0.9) translateY(2.4rem);
-    color: ${theme.colors.gray['600']};
+    transform: scale(0.9) translateY(3.6rem);
+    color: ${theme.colors.gray['300']};
     opacity: 0;
+  }
+`
+
+export const rightSlide = keyframes`
+  from {
+    width: 8rem;
+  }
+
+  10%, 90% {
+    width: 12rem;
+  }
+
+  to {
+    width: 8rem;
   }
 `
