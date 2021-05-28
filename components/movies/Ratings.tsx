@@ -1,11 +1,11 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useEffect, useState } from 'react'
-import { slideUp, slideDown } from '../../styles/keyframes'
+import { slideUp, slideDown, rightSlide } from '../../styles/keyframes'
 import { ThumbsDown, ThumbsUp } from '../icons'
 
 const RateButton = styled.button`
-  width: 12rem;
+  width: 8rem;
   height: 4.2rem;
   border-radius: 8rem;
   margin-right: 2rem;
@@ -15,6 +15,7 @@ const RateButton = styled.button`
 
   svg {
     align-self: center;
+    min-width: 3rem;
   }
 
   span {
@@ -23,9 +24,22 @@ const RateButton = styled.button`
     font-size: 1.8rem;
     line-height: 2.7rem;
     font-weight: 700;
-    opacity: 0;
-    margin-right: 0.5rem;
+    margin-right: 1rem;
   }
+`
+
+type FeedbackProps = {
+  slide: 'up' | 'down'
+}
+
+const Feedback = styled.span<FeedbackProps>`
+  transform: ${(props) =>
+    props.slide === 'up' ? 'translateY(3rem)' : 'translateY(-3rem)'};
+  opacity: 0;
+  animation: ${(props) => (props.slide === 'up' ? slideUp : slideDown)} 1.8s
+    ${(props) => (props.slide === 'up' ? 'ease-out' : 'ease-in')};
+  animation-delay: 100ms;
+  margin-right: 0.5rem;
 `
 
 const Ratings = () => {
@@ -46,33 +60,35 @@ const Ratings = () => {
       <RateButton
         onClick={() => showFeedback({ liked: true })}
         disabled={feedback.liked}
+        css={
+          feedback.liked &&
+          css`
+            animation: ${rightSlide} 2100ms ease-in-out;
+          `
+        }
       >
         <ThumbsUp />
-        {feedback.liked && (
-          <span
-            css={css`
-              transform: translateY(3rem);
-              animation: ${slideUp} 1.8s ease-out;
-            `}
-          >
-            Liked!
-          </span>
+        {feedback.liked ? (
+          <Feedback slide="up">Liked!</Feedback>
+        ) : (
+          <span>2</span>
         )}
       </RateButton>
       <RateButton
         onClick={() => showFeedback({ mehd: true })}
-        disabled={feedback.liked}
+        disabled={feedback.mehd}
+        css={
+          feedback.mehd &&
+          css`
+            animation: ${rightSlide} 2100ms ease-in-out;
+          `
+        }
       >
         <ThumbsDown />
-        {feedback.mehd && (
-          <span
-            css={css`
-              transform: translateY(-3rem);
-              animation: ${slideDown} 1.8s ease-in;
-            `}
-          >
-            Meh&#39;d
-          </span>
+        {feedback.mehd ? (
+          <Feedback slide="down">Meh&#39;d</Feedback>
+        ) : (
+          <span>1</span>
         )}
       </RateButton>
     </div>
