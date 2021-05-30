@@ -7,9 +7,10 @@ import {
   MoviePoster,
   MovieText,
   MovieTitle,
+  Tagline,
 } from '../../components/movies/MovieDetails'
 import Ratings from '../../components/movies/Ratings'
-import { H2 } from '../../styles/typography'
+import { H2, H4 } from '../../styles/typography'
 import { Movie } from '../../utils/tmdbClient'
 
 export default function SingleMovieModal({
@@ -51,6 +52,8 @@ export default function SingleMovieModal({
             </MovieText>
           </MovieTitle>
           <Ratings />
+          <Tagline>{movie?.tagline}</Tagline>
+          <H4>Overview</H4>
           <MovieText>{movie?.overview}</MovieText>
         </MovieInfo>
       </MovieContainer>

@@ -18,6 +18,7 @@ export interface Movie {
   video: boolean
   vote_average: number
   runtime: number
+  tagline?: string
 }
 
 export default class TmdbClient {
