@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import styled from '@emotion/styled'
-import { css, useTheme } from '@emotion/react'
+import { css } from '@emotion/react'
 import { Movie } from '../../utils/tmdbClient'
 import ImgFallback from './ImgFallback'
 import { RightChevron } from '../icons'
@@ -19,13 +19,13 @@ const MovieCard = styled.article`
   flex-flow: column;
   align-items: center;
   justify-content: space-between;
-  height: 28rem;
-  max-width: 19rem;
+  height: 27rem;
+  min-width: 18rem;
   position: relative;
-  margin: 2rem 0.5rem;
+  margin: 2rem auto;
   border-radius: 2.5rem;
   background: #e0e0e0;
-  box-shadow: 8px 8px 12px #cccccc, -8px -8px 12px #f4f4f4;
+  box-shadow: 4px 4px 8px #9c9c9c, -4px -4px 8px #f4f4f4;
 `
 
 const Caption = styled.div`
@@ -40,13 +40,13 @@ const Caption = styled.div`
 `
 
 const Title = styled.p`
-  font-size: 1.8rem;
-  line-height: 2.7rem;
-  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  font-weight: 600;
   color: ${(props) => props.theme.colors.gray['900']};
-  text-align: center;
-  width: 95%;
-  margin: 0.5rem auto;
+  text-align: left;
+  width: 80%;
+  margin: 0.5rem auto 0.3rem;
   padding: 0 0.5rem;
 `
 
