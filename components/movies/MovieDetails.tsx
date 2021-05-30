@@ -19,8 +19,9 @@ export const MovieContainer = styled.section<MovieContainerProps>`
   color: white;
   background: linear-gradient(
       145deg,
-      rgba(34, 34, 34, 0.95) 25%,
-      rgba(34, 34, 34, 0.8) 50%,
+      rgba(34, 34, 34, 0.95) 15%,
+      rgba(34, 34, 34, 0.9) 30%,
+      rgba(34, 34, 34, 0.85) 50%,
       rgba(98, 98, 98, 0.9)
     ),
     url(${(props) => rootBackdropPath + props.backDropUrl});
@@ -62,4 +63,12 @@ export const MovieText = styled.p`
   line-height: 2.4rem;
   font-weight: 400;
   color: ${(props) => props.theme.colors.gray['100']};
+`
+
+export const Tagline = styled.p`
+  font-size: 1.8rem;
+  line-height: 2.7;
+  font-style: italic;
+  margin: 0;
+  color: ${(props) => props.theme.colors.gray['300']};
 `

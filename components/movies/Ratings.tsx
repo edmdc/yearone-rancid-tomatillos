@@ -36,7 +36,7 @@ const Feedback = styled.span<FeedbackProps>`
   transform: ${(props) =>
     props.slide === 'up' ? 'translateY(3rem)' : 'translateY(-3rem)'};
   opacity: 0;
-  animation: ${(props) => (props.slide === 'up' ? slideUp : slideDown)} 1.8s
+  animation: ${(props) => (props.slide === 'up' ? slideUp : slideDown)} 1.5s
     ${(props) => (props.slide === 'up' ? 'ease-out' : 'ease-in')};
   animation-delay: 100ms;
   margin-right: 0.5rem;
@@ -63,7 +63,7 @@ const Ratings = () => {
         css={
           feedback.liked &&
           css`
-            animation: ${rightSlide} 2100ms ease-in-out;
+            animation: ${rightSlide} 1.5s ease-in-out;
           `
         }
       >
