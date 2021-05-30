@@ -19,3 +19,10 @@ export const H4 = styled.h4`
   font-weight: 500;
   margin: 0;
 `
+
+export const H5 = styled.h5`
+  font-size: 2.1rem;
+  line-height: 3.2rem;
+  font-weight: 500;
+  margin: 0;
+`

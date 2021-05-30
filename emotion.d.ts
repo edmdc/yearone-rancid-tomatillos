@@ -16,7 +16,7 @@ interface ColorLevels {
 declare module '@emotion/react' {
   export interface Theme {
     colors: {
-      yellow: ColorLevels
+      green: ColorLevels
       blue: ColorLevels
       gray: ColorLevels
       red: ColorLevels
