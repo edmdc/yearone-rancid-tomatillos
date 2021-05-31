@@ -51,6 +51,17 @@ export default class TmdbClient {
     }
   }
 
+  async searchMovies(req: NextApiRequest, res: NextApiResponse) {
+    const { query } = req.query
+    try {
+      const { data } = await this.client.get(`/search/movie?query=${query}`)
+      res.status(200).json(data)
+    } catch (err) {
+      const status = err.message.match(/\b\d{3}\b/g)
+      res.status(status).json(err)
+    }
+  }
+
   async getConfig() {
     try {
       const { data } = await this.client.get('/configuration')
