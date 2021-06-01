@@ -6,7 +6,7 @@ import ImgFallback from './ImgFallback'
 import { Movie } from '../../utils/tmdbClient'
 import { RightChevron } from '../icons'
 
-const Thumbnail = styled.article`
+export const Thumbnail = styled.article`
   position: relative;
   display: flex;
   flex-flow: column;

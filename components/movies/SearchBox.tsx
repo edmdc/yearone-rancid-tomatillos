@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { ChangeEventHandler, useState } from 'react'
+import { ChangeEventHandler } from 'react'
 
 const Container = styled.div`
   background: url('/drivein-theatre.jpeg') no-repeat center;
@@ -56,12 +56,17 @@ const SearchButton = styled.button`
   }
 `
 
-export default function SearchBox() {
-  const [searchQuery, setSearchQuery] = useState('')
-  const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    event.preventDefault()
-    setSearchQuery(event.currentTarget.value)
-  }
+interface SearchBoxProps {
+  searchQuery: string
+  handleInputChange: ChangeEventHandler<HTMLInputElement>
+  searchMovie: () => void
+}
+
+export default function SearchBox({
+  searchQuery,
+  handleInputChange,
+  searchMovie,
+}: SearchBoxProps): JSX.Element {
   return (
     <Container>
       <SearchWrapper>
@@ -70,7 +75,9 @@ export default function SearchBox() {
           onChange={handleInputChange}
           placeholder="Search Movie titles..."
         />
-        <SearchButton disabled={!searchQuery}>Search</SearchButton>
+        <SearchButton disabled={!searchQuery} onClick={searchMovie}>
+          Search
+        </SearchButton>
       </SearchWrapper>
     </Container>
   )
