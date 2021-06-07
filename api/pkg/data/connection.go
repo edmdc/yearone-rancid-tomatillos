@@ -12,14 +12,14 @@ import (
 )
 
 type Connection struct {
-  Client *mongo.Client
-  ctx context.Context
+	Client *mongo.Client
+	ctx    context.Context
 }
 
 func ConnectDb(config *config.Settings) Connection {
-  uri := fmt.Sprintf("mongodb+srv://%s:%s@%s/%s?w=majority", config.DbUser, config.DbPassword, config.DbCluster, config.DbName)
+	uri := fmt.Sprintf("mongodb+srv://%s:%s@%s/%s?w=majority", config.DbUser, config.DbPassword, config.DbCluster, config.DbName)
 
-  opts := options.Client().ApplyURI(uri)
+	opts := options.Client().ApplyURI(uri)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
@@ -36,11 +36,11 @@ func ConnectDb(config *config.Settings) Connection {
 	fmt.Println("Successfully connected and pinged.")
 
 	return Connection{
-    Client: client,
-    ctx: ctx,
-  }
+		Client: client,
+		ctx:    ctx,
+	}
 }
 
 func (c Connection) Disconnect() {
-  c.Client.Disconnect(c.ctx)
+	c.Client.Disconnect(c.ctx)
 }
