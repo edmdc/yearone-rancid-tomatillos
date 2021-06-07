@@ -1,11 +1,11 @@
 package data
 
 import (
-	"os"
+	"context"
 	"fmt"
 	"time"
-	"context"
 
+	"github.com/edmdc/yearone-rancid-tomatillos/api/pkg/config"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
@@ -16,13 +16,8 @@ type Connection struct {
   ctx context.Context
 }
 
-func ConnectDb() Connection {
-	username := os.Getenv("MONGODB_USERNAME")
-	password := os.Getenv("MONGODB_PASSWORD")
-  cluster := os.Getenv("MONGODB_CLUSTER")
-  dbName := os.Getenv("MONGODB_DBNAME")
-
-  uri := fmt.Sprintf("mongodb+srv://%s:%s@%s/%s?w=majority", username, password, cluster, dbName)
+func ConnectDb(config *config.Settings) Connection {
+  uri := fmt.Sprintf("mongodb+srv://%s:%s@%s/%s?w=majority", config.DbUser, config.DbPassword, config.DbCluster, config.DbName)
 
   opts := options.Client().ApplyURI(uri)
 
