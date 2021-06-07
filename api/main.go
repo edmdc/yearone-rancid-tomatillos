@@ -13,14 +13,13 @@ import (
 	"time"
 
 	"github.com/edmdc/yearone-rancid-tomatillos/api/utils"
+	"github.com/edmdc/yearone-rancid-tomatillos/api/pkg/data"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
 type MovieRating struct {
@@ -34,18 +33,9 @@ var RatingsCollection *mongo.Collection
 
 func main() {
 	utils.LoadEnv()
+  db := data.ConnectDb()
+  defer db.Disconnect()
 	r := rootRouter()
-
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
-	defer cancel()
-
-	client := connectDb(ctx)
-	defer func() {
-		fmt.Println("Aha, just disconnected client")
-		if err := client.Disconnect(ctx); err != nil {
-			panic(err)
-		}
-	}()
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Howdy!"))
@@ -84,25 +74,6 @@ func rootRouter() *chi.Mux {
 	}))
 
 	return r
-}
-
-func connectDb(ctx context.Context) *mongo.Client {
-	uri := os.Getenv("MONGODB_URI")
-	fmt.Println(uri)
-	uri = "mongodb://127.0.0.1:27017"
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(uri))
-	if err != nil {
-		panic(err.Error())
-	}
-	// Ping the primary
-	if err := client.Ping(ctx, readpref.Primary()); err != nil {
-		panic(err.Error())
-	}
-	fmt.Println("Successfully connected and pinged.")
-
-	RatingsCollection = client.Database("yearone-rancid-tomatillos").Collection("Ratings")
-
-	return client
 }
 
 func RatingsCtx(next http.Handler) http.Handler {
