@@ -37,13 +37,13 @@ export default function Home({
   if (error)
     return (
       <>
-        <Header>Rancid Tomatillos</Header>
+        <Header />
         <h2>{error}</h2>
       </>
     )
   return (
     <>
-      <Header>Rancid Tomatillos</Header>
+      <Header />
       <SearchBox
         handleInputChange={handleInputChange}
         searchQuery={searchQuery}
