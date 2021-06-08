@@ -6,6 +6,7 @@ replace github.com/edmdc/yearone-rancid-tomatillos/api/pkg/config => ./pkg/confi
 replace github.com/edmdc/yearone-rancid-tomatillos/api/pkg/data => ./pkg/data
 replace github.com/edmdc/yearone-rancid-tomatillos/api/pkg/domain => ./pkg/domain
 replace github.com/edmdc/yearone-rancid-tomatillos/api/pkg/models => ./pkg/models
+replace github.com/edmdc/yearone-rancid-tomatillos/api/pkg/services => ./pkg/services
 replace github.com/edmdc/yearone-rancid-tomatillos/api/internal/api => ./internal/api
 
 require (
