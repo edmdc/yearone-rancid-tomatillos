@@ -9,9 +9,15 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type IRatingProvider interface {
+	CreateRating(movieRating *domain.Rating) error
+	RatingExists(tmdbId int) (bool, error)
+	FindRatingByTmdbId(tmdbId int) (*domain.Rating, error)
+	UpvoteMovie(tmdbId int) (*domain.Rating, error)
+	DownvoteMovie(tmdbId int) (*domain.Rating, error)
 }
 
 type RatingProvider struct {
@@ -67,8 +73,9 @@ func (p RatingProvider) UpvoteMovie(tmdbId int) (*domain.Rating, error) {
 	var updatedRating domain.Rating
 	filter := bson.D{primitive.E{Key: "tmdbid", Value: tmdbId}}
 	update := bson.D{{"$inc", bson.D{{"upVotes", 1}}}}
+	opts := options.FindOneAndUpdate().SetReturnDocument(1)
 
-	if err := p.ratingCollection.FindOneAndUpdate(p.ctx, filter, update).Decode(&updatedRating); err != nil {
+	if err := p.ratingCollection.FindOneAndUpdate(p.ctx, filter, update, opts).Decode(&updatedRating); err != nil {
 		if err == mongo.ErrNoDocuments {
 			return nil, nil
 		}
@@ -82,8 +89,9 @@ func (p RatingProvider) DownvoteMovie(tmdbId int) (*domain.Rating, error) {
 	var updatedRating domain.Rating
 	filter := bson.D{primitive.E{Key: "tmdbid", Value: tmdbId}}
 	update := bson.D{{"$inc", bson.D{{"downVotes", 1}}}}
+	opts := options.FindOneAndUpdate().SetReturnDocument(1)
 
-	if err := p.ratingCollection.FindOneAndUpdate(p.ctx, filter, update).Decode(&updatedRating); err != nil {
+	if err := p.ratingCollection.FindOneAndUpdate(p.ctx, filter, update, opts).Decode(&updatedRating); err != nil {
 		if err == mongo.ErrNoDocuments {
 			return nil, nil
 		}
