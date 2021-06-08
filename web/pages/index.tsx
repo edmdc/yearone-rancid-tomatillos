@@ -1,13 +1,13 @@
+import { ChangeEventHandler, useState } from 'react'
 import { css } from '@emotion/react'
 import { GetStaticProps } from 'next'
-import { ChangeEventHandler, useEffect, useRef, useState } from 'react'
-import Grid from '../components/layout/Grid'
-import Header from '../components/layout/Header'
-import Row from '../components/layout/Row'
-import SearchBox from '../components/movies/SearchBox'
-import MovieThumbnail from '../components/movies/Thumbnail'
-import { H4 } from '../styles/typography'
-import { Movie, TmdbResponse } from '../utils/tmdbClient'
+import { Movie, TmdbResponse } from '@/lib/api/tmdbClient'
+import Grid from '@/components/layout/Grid'
+import Header from '@/components/layout/Header'
+import Row from '@/components/layout/Row'
+import SearchBox from '@/components/movies/SearchBox'
+import MovieThumbnail from '@/components/movies/Thumbnail'
+import { H4 } from '@/styles/typography'
 
 export default function Home({
   movies,
