@@ -35,7 +35,7 @@ export default class TmdbClient {
     this.client = axios.create({
       baseURL: 'https://api.themoviedb.org/3',
       timeout: 1200,
-      headers: { Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}` },
+      headers: { Authorization: `Bearer ${process.env.TMDB_TOKEN}` },
     })
   }
 
@@ -51,8 +51,8 @@ export default class TmdbClient {
   async getSingleMovie(req: NextApiRequest, res: NextApiResponse) {
     const { movieId } = req.query
     try {
-      const result = await this.client.get(`/movie/${movieId}`)
-      res.status(200).json(result.data)
+      const { data } = await this.client.get(`/movie/${movieId}`)
+      res.status(200).json(data)
     } catch (err) {
       res.status(err.response.status).json(err)
     }
