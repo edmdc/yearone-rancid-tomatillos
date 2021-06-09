@@ -1,13 +1,20 @@
 import styled from '@emotion/styled'
 import { Thumbnail } from '../movies/Thumbnail'
 
+// align-items: center;
 const Row = styled.section`
   display: flex;
   flex-flow: row no-wrap;
-  overflow-x: scroll;
+  height: 36rem;
+  overflow-x: hidden;
+  padding: 3rem;
+
+  :hover {
+    overflow-x: scroll;
+  }
 
   ${Thumbnail} {
-    margin-right: 2.5rem;
+    margin-right: 3.4rem;
   }
 `
 
