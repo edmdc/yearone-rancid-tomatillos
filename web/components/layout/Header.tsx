@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import styled from '@emotion/styled'
 
-const Header = styled.header`
+const HeaderWrapper = styled.header`
   background-color: ${(props) => props.theme.colors.red['600']};
   max-width: ${(props) => props.theme.maxWidth};
   padding: 1rem;
@@ -16,10 +16,12 @@ const Header = styled.header`
   }
 `
 
-export default () => (
-  <Header>
+const Header = () => (
+  <HeaderWrapper>
     <Link href="/">
       <button type="button">Rancid Tomatillos</button>
     </Link>
-  </Header>
+  </HeaderWrapper>
 )
+
+export default Header
