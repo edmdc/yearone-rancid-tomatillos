@@ -27,7 +27,6 @@ export default function Home({
     try {
       const res = await fetch(`http://localhost:8080/api/search/${searchQuery}`)
       const data = await res.json()
-      console.log(data)
       setResults(data)
     } catch (err) {
       console.log(err)

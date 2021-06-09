@@ -31,7 +31,7 @@ func New(config *config.Settings, client *mongo.Client) *App {
 	r.Use(middleware.Timeout(60 * time.Second))
 
 	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowedOrigins:   []string{"http://localhost:8080"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
@@ -59,8 +59,8 @@ func (a App) ConfigureRoutes() {
 			r.Route("/{tmdbId}", func(r chi.Router) {
 				r.Use(RatingsCtx)
 				r.Get("/", a.GetMovieRating)
-				r.Get("/upvote", a.UpvoteMovie)
-				r.Get("/downvote", a.DownvoteMovie)
+				r.Post("/upvote", a.UpvoteMovie)
+				r.Post("/downvote", a.DownvoteMovie)
 			})
 		})
 	})
