@@ -1,10 +1,10 @@
-import { iconBaseStyles, iconColors } from '@/styles/icons'
+import { iconColors, thumbIconStyles } from '@/styles/icons'
 
 const ThumbsDown = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    css={iconBaseStyles}
+    css={thumbIconStyles}
   >
     <path
       css={iconColors.primary}
