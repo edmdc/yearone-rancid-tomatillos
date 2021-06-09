@@ -14,16 +14,22 @@ import { H2, H4 } from '@/styles/typography'
 import { Movie } from '@/lib/api/tmdbClient'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import Footer from '@/components/layout/Footer'
 
 type Votes = {
   UpVotes: number
   DownVotes: number
 }
 
+type Errors = {
+  tmdb?: string
+  ratings?: string
+}
+
 interface SingleMovieProps {
   movie: Movie
   votes: Votes
-  error?: string
+  errors?: Errors
 }
 
 const rootImgSrc = 'https://image.tmdb.org/t/p/w500'
@@ -36,7 +42,7 @@ const formatRuntime = (runtime: number): string => {
 export default function SingleMovieModal({
   movie,
   votes,
-  error,
+  errors,
 }: SingleMovieProps) {
   const router = useRouter()
   const { query } = router
@@ -98,7 +104,6 @@ export default function SingleMovieModal({
             <H2>
               {movie?.title}
               <span>({new Date(movie?.release_date).getFullYear()})</span>
-              {error && error}
             </H2>
             <MovieText>
               {movie?.genres.map((genre) => genre.name).join(', ')} ●{' '}
@@ -111,50 +116,49 @@ export default function SingleMovieModal({
             upVoteMovie={upVoteMovie}
             downVoteMovie={downVoteMovie}
           />
+          {errors?.ratings && <span>{errors.ratings}</span>}
           <Tagline>{movie?.tagline}</Tagline>
           <H4>Overview</H4>
           <MovieText>{movie?.overview}</MovieText>
         </MovieInfo>
       </MovieContainer>
+      <Footer />
     </div>
   )
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { movieId } = context.params
-  const res = await fetch(`http://localhost:8080/api/movies/${movieId}`)
-  const res2 = await fetch(`http://localhost:8081/v1/ratings/${movieId}`)
-  let votes = {
+  let votes: Votes = {
     UpVotes: 0,
     DownVotes: 0,
   }
+  let errors = {
+    tmdb: null,
+    ratings: null,
+  }
+  let movieData: Movie
 
-  if (!res.ok) {
-    const error = await res.json()
-
-    return {
-      props: {
-        movie: {},
-        error,
-        votes,
-      },
-    }
+  try {
+    const res = await fetch(`http://localhost:8080/api/movies/${movieId}`)
+    const data = await res.json()
+    movieData = data
+  } catch (err) {
+    errors.tmdb = err.message
   }
 
-  if (res2.ok) {
+  try {
+    const res2 = await fetch(`http://localhost:8081/v1/ratings/${movieId}`)
     const { UpVotes, DownVotes } = await res2.json()
-    votes = {
-      UpVotes,
-      DownVotes,
-    }
+    votes = { UpVotes, DownVotes }
+  } catch (err) {
+    errors.ratings = err.message
   }
-
-  const data = await res.json()
 
   return {
     props: {
-      movie: data,
-      error: '',
+      movie: movieData,
+      error: errors,
       votes,
     },
   }
