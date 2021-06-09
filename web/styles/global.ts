@@ -12,7 +12,7 @@ export default css`
     padding: 0;
     margin: 0;
     font-family: 'Manrope', sans-serif;
-    background-color: ${colors.gray['50']};
+    background-color: ${colors.gray['100']};
   }
 
   a {

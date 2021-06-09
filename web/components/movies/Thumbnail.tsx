@@ -63,7 +63,7 @@ const MovieThumbnail = ({ movie }: ThumbnailProps): JSX.Element => {
           src={rootImgSrc + movie.poster_path}
           alt={`Poster for ${movie.title}`}
           layout="fill"
-          objectFit="scale-down"
+          objectFit="fill"
           objectPosition="top"
           css={css`
             position: absolute;
