@@ -42,13 +42,37 @@ const Feedback = styled.span<FeedbackProps>`
   margin-right: 0.5rem;
 `
 
-const Ratings = () => {
+interface RatingProps {
+  upVotes: number
+  downVotes: number
+  upVoteMovie: () => void
+  downVoteMovie: () => void
+}
+
+const Ratings = ({
+  upVotes,
+  downVotes,
+  upVoteMovie,
+  downVoteMovie,
+}: RatingProps): JSX.Element => {
   const [feedback, showFeedback] = useState<{ [feedback: string]: boolean }>({})
 
   useEffect(() => {
     const timeout = setTimeout(() => showFeedback(() => ({})), 2000)
     return () => clearTimeout(timeout)
   }, [feedback])
+
+  const handleUpvote = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    showFeedback({ liked: true })
+    upVoteMovie()
+  }
+
+  const handleDownvote = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    showFeedback({ mehd: true })
+    downVoteMovie()
+  }
 
   return (
     <div
@@ -58,7 +82,7 @@ const Ratings = () => {
       `}
     >
       <RateButton
-        onClick={() => showFeedback({ liked: true })}
+        onClick={handleUpvote}
         disabled={feedback.liked}
         css={
           feedback.liked &&
@@ -71,11 +95,11 @@ const Ratings = () => {
         {feedback.liked ? (
           <Feedback slide="up">Liked!</Feedback>
         ) : (
-          <span>2</span>
+          <span>{upVotes}</span>
         )}
       </RateButton>
       <RateButton
-        onClick={() => showFeedback({ mehd: true })}
+        onClick={handleDownvote}
         disabled={feedback.mehd}
         css={
           feedback.mehd &&
@@ -88,7 +112,7 @@ const Ratings = () => {
         {feedback.mehd ? (
           <Feedback slide="down">Meh&#39;d</Feedback>
         ) : (
-          <span>1</span>
+          <span>{downVotes}</span>
         )}
       </RateButton>
     </div>
