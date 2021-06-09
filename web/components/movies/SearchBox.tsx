@@ -8,6 +8,8 @@ const Container = styled.div`
   background-size: cover;
   margin: 4rem auto;
   position: relative;
+  border-radius: 1rem;
+  box-shadow: 8px 8px 12px #9c9c9c, -8px -8px 12px #fcfcfc;
 `
 
 const SearchWrapper = styled.div`
