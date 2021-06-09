@@ -2,8 +2,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
+import { Movie } from '@/lib/api/tmdbClient'
 import ImgFallback from './ImgFallback'
-import { Movie } from '../../utils/tmdbClient'
 import { RightChevron } from '../icons'
 
 export const Thumbnail = styled.article`
@@ -16,7 +16,7 @@ export const Thumbnail = styled.article`
   min-width: 18rem;
   border-radius: 1.8rem;
   background: #e0e0e0;
-  box-shadow: 4px 4px 8px #9c9c9c, -4px -4px 8px #f4f4f4;
+  box-shadow: 8px 8px 16px #9c9c9c, -8px -8px 16px #fcfcfc;
 `
 
 const Caption = styled.div`
@@ -27,13 +27,13 @@ const Caption = styled.div`
   backdrop-filter: blur(3px);
   width: 100%;
   height: 8rem;
-  border-radius: 0 0 1.5rem 1.5rem;
+  border-radius: 0 0 1rem 1rem;
 `
 
 const Title = styled.p`
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   line-height: 2.4rem;
-  font-weight: 600;
+  font-weight: 700;
   color: ${(props) => props.theme.colors.gray['900']};
   text-align: left;
   width: 80%;
@@ -68,7 +68,7 @@ const MovieThumbnail = ({ movie }: ThumbnailProps): JSX.Element => {
           css={css`
             position: absolute;
             z-index: 2;
-            border-radius: 2.5rem;
+            border-radius: 1rem;
           `}
         />
       ) : (
