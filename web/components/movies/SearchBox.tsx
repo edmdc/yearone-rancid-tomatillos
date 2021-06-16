@@ -69,12 +69,18 @@ export default function SearchBox({
   handleInputChange,
   searchMovie,
 }: SearchBoxProps): JSX.Element {
+  const searchOnEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === 'Enter') {
+      searchMovie()
+    }
+  }
   return (
     <Container>
       <SearchWrapper>
         <Input
           value={searchQuery}
           onChange={handleInputChange}
+          onKeyPress={searchOnEnter}
           placeholder="Search Movie titles..."
         />
         <SearchButton disabled={!searchQuery} onClick={searchMovie}>
