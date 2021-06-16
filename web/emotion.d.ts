@@ -34,5 +34,9 @@ declare module '@emotion/react' {
       xxxlg: string
     }
     maxWidth: string
+    shadow: {
+      sm: string
+      md: string
+    }
   }
 }
