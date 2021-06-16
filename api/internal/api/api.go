@@ -70,5 +70,5 @@ func (a App) Start() {
 	a.ConfigureRoutes()
 
 	fmt.Println("Starting server at http://localhost:8081")
-	log.Fatalln(http.ListenAndServe("localhost:8081", a.router))
+	log.Fatalln(http.ListenAndServe(":8081", a.router))
 }

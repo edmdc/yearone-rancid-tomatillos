@@ -17,11 +17,10 @@ type Connection struct {
 }
 
 func ConnectDb(config *config.Settings) Connection {
-	uri := fmt.Sprintf("mongodb+srv://%s:%s@%s/%s?w=majority", config.DbUser, config.DbPassword, config.DbCluster, config.DbName)
-
+	uri := fmt.Sprintf("mongodb://%s:%s@%s/?w=majority", config.DbUser, config.DbPassword, config.DbCluster)
 	opts := options.Client().ApplyURI(uri)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	client, err := mongo.Connect(ctx, opts)
@@ -30,9 +29,10 @@ func ConnectDb(config *config.Settings) Connection {
 		panic(err.Error())
 	}
 	// Ping the primary
-	if err := client.Ping(ctx, readpref.Primary()); err != nil {
+	if err = client.Ping(ctx, readpref.Primary()); err != nil {
 		panic(err.Error())
 	}
+
 	fmt.Println("Successfully connected and pinged.")
 
 	return Connection{
