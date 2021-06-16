@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  web:
+    container_name: yearone_web
+    build: ./web
+    ports:
+      - 8080:8080
+    env_file:
+      - ./web/.env.local
+    restart: always
+    links:
+      - api
+    networks:
+      - yearone_network
+  api:
+    container_name: yearone_api
+    build: ./api
+    ports:
+      - 8081:8081
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${MONGO_INITDB_ROOT_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_INITDB_ROOT_PASSWORD}"
+      MONGO_INITDB_ROOT_DATABASE: "${MONGO_INITDB_ROOT_DATABASE}"
+      MONGO_HOST: "${MONGO_HOST}"
+    restart: always
+    links:
+      - mongodb
+    networks:
+      - yearone_network
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${MONGO_INITDB_ROOT_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_INITDB_ROOT_PASSWORD}"
+      MONGO_INITDB_ROOT_DATABASE: "${MONGO_INITDB_ROOT_DATABASE}"
+    networks:
+      - yearone_network
+volumes:
+  mongo:
+networks:
+  yearone_network:
+    driver: bridge

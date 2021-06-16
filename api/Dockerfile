@@ -12,7 +12,7 @@ COPY . .
 RUN go mod download
 RUN go mod verify
 # Build the binary.
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o main .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o main .
 
 ############################
 # STEP 2 build a small image
@@ -31,5 +31,4 @@ COPY --from=builder --chown=restapi:golang /go/src/app/main .
 # Use an unprivileged user.
 USER restapi
 EXPOSE 8081
-# Run the hello binary.
 ENTRYPOINT ["./main"]
