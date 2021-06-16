@@ -14,4 +14,8 @@ export default {
     xxxlg: '12rem',
   },
   maxWidth: '88%',
+  shadow: {
+    sm: '4px 4px 8px #9c9c9c, -4px -4px 8px #fcfcfc',
+    md: '8px 8px 16px #9c9c9c, -8px -8px 16px #fcfcfc',
+  },
 }
