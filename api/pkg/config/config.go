@@ -3,8 +3,6 @@ package config
 import (
 	"log"
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
 type Settings struct {
@@ -15,29 +13,24 @@ type Settings struct {
 }
 
 func LoadEnv() *Settings {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Could not find .env file in project directory")
-	}
-
-	mongoUsername := os.Getenv("MONGODB_USERNAME")
+	mongoUsername := os.Getenv("MONGO_INITDB_ROOT_USERNAME")
 	if mongoUsername == "" {
-		log.Fatal("Could not find MONGODB_USERNAME in env file. Please start a free Atlas cluster at https://www.mongodb.com/")
+		log.Fatal("Could not find MONGO_INITDB_ROOT_USERNAME in environment")
 	}
 
-	mongoPassword := os.Getenv("MONGODB_PASSWORD")
+	mongoPassword := os.Getenv("MONGO_INITDB_ROOT_PASSWORD")
 	if mongoPassword == "" {
-		log.Fatal("Could not find MONGODB_PASSWORD in env file. Please start a free Atlas cluster at https://www.mongodb.com/")
+		log.Fatal("Could not find MONGO_INITDB_ROOT_PASSWORD in environment")
 	}
 
-	mongoCluster := os.Getenv("MONGODB_CLUSTER")
+	mongoCluster := os.Getenv("MONGO_HOST")
 	if mongoCluster == "" {
-		log.Fatal("Could not find MONGODB_CLUSTER in env file. Please start a free Atlas cluster at https://www.mongodb.com/")
+		log.Fatal("Could not find MONGO_HOST in environment")
 	}
 
-	mongoDbName := os.Getenv("MONGODB_DBNAME")
+	mongoDbName := os.Getenv("MONGO_INITDB_ROOT_DATABASE")
 	if mongoDbName == "" {
-		log.Fatal("Could not find MONGODB_DB in env file. Please start a free Atlas cluster at https://www.mongodb.com/")
+		log.Fatal("Could not find MONGO_INITDB_ROOT_DATABASE in environment")
 	}
 
 	return &Settings{
