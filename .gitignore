@@ -16,6 +16,7 @@ web/.pnp
 */build
 
 # misc
+.DS_Store
 */.DS_Store
 *.pem
 
@@ -25,11 +26,14 @@ web/.pnp
 */yarn-error.log*
 
 # local env files
+.env
 */.env
 */.env.local
 */.env.development.local
 */.env.test.local
 */.env.production.local
+secrets/
+mongo/
 
 # vercel
 */.vercel
