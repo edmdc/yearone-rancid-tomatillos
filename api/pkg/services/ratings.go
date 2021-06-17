@@ -41,7 +41,6 @@ func (s RatingService) FindMovieRating(tmdbId int) (*domain.Rating, *models.Erro
 			Status:  http.StatusNotFound,
 			Name:    "NOT_FOUND",
 			Message: "No rating exists for this movie",
-			Error:   err,
 		}
 	}
 

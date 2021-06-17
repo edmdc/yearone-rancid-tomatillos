@@ -5,8 +5,8 @@ import (
 )
 
 type Rating struct {
-	Id        primitive.ObjectID `bson:"_id"`
-	TmdbId    int                `bson:"tmdbid,required"`
-	UpVotes   uint               `bson:"upVotes"`
-	DownVotes uint               `bson:"downVotes"`
+  Id        primitive.ObjectID `bson:"_id" json:"id"`
+  TmdbId    int                `bson:"tmdbid,required" json:"tmdbId,required"`
+  UpVotes   uint               `bson:"upVotes" json:"upVotes"`
+  DownVotes uint               `bson:"downVotes" json:"downVotes"`
 }
