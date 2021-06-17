@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from "axios"
-import { NextApiRequest, NextApiResponse } from "next"
 
 export interface Movie {
   poster_path?: string
@@ -21,6 +20,29 @@ export interface Movie {
   tagline?: string
 }
 
+interface Person {
+  adult?: boolean
+  gender?: number
+  id: number
+  known_for_department: string
+  name: string
+  original_name: string
+  popularity: number
+  profile_path?: string
+  credit_id: string
+}
+
+export interface Cast extends Person {
+  cast_id: number
+  character: string
+  order: number
+}
+
+export interface Crew extends Person {
+  department: string
+  job: string
+}
+
 export interface TmdbResponse {
   page?: number
   results?: Movie[]
@@ -39,7 +61,7 @@ export default class TmdbClient {
     })
   }
 
-  async getTrendingMovies() {
+  async getTrendingMovies(): Promise<TmdbResponse> {
     try {
       const { data } = await this.client.get("/trending/movie/day")
       return data
@@ -48,7 +70,7 @@ export default class TmdbClient {
     }
   }
 
-  async getSingleMovie(movieId: number) {
+  async getSingleMovie(movieId: number): Promise<Movie> {
     try {
       const { data } = await this.client.get(`/movie/${movieId}`)
       return data
@@ -57,13 +79,22 @@ export default class TmdbClient {
     }
   }
 
-  async searchMovies(query: string) {
+  async searchMovies(query: string): Promise<TmdbResponse> {
     try {
       const { data } = await this.client.get(`/search/movie?query=${query}`)
       return data
     } catch (err) {
       const status = err.message.match(/\b\d{3}\b/g)
       return status
+    }
+  }
+
+  async getMovieCredits(movieId: number | string) {
+    try {
+      const { data } = await this.client.get(`/movie/${movieId}/credits`)
+      return data
+    } catch (err) {
+      return err
     }
   }
 
