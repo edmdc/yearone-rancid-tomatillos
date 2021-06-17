@@ -1,5 +1,5 @@
-import axios, { AxiosInstance } from 'axios'
-import { NextApiRequest, NextApiResponse } from 'next'
+import axios, { AxiosInstance } from "axios"
+import { NextApiRequest, NextApiResponse } from "next"
 
 export interface Movie {
   poster_path?: string
@@ -33,45 +33,43 @@ export default class TmdbClient {
 
   constructor() {
     this.client = axios.create({
-      baseURL: 'https://api.themoviedb.org/3',
+      baseURL: "https://api.themoviedb.org/3",
       timeout: 1200,
       headers: { Authorization: `Bearer ${process.env.TMDB_TOKEN}` },
     })
   }
 
-  async getTrendingMovies(req: NextApiRequest, res: NextApiResponse) {
+  async getTrendingMovies() {
     try {
-      const { data } = await this.client.get('/trending/movie/day')
-      res.status(200).json(data)
+      const { data } = await this.client.get("/trending/movie/day")
+      return data
     } catch (error) {
-      res.status(error.response.status).json(error)
+      return error
     }
   }
 
-  async getSingleMovie(req: NextApiRequest, res: NextApiResponse) {
-    const { movieId } = req.query
+  async getSingleMovie(movieId: number) {
     try {
       const { data } = await this.client.get(`/movie/${movieId}`)
-      res.status(200).json(data)
+      return data
     } catch (err) {
-      res.status(err.response.status).json(err)
+      return err
     }
   }
 
-  async searchMovies(req: NextApiRequest, res: NextApiResponse) {
-    const { query } = req.query
+  async searchMovies(query: string) {
     try {
       const { data } = await this.client.get(`/search/movie?query=${query}`)
-      res.status(200).json(data)
+      return data
     } catch (err) {
       const status = err.message.match(/\b\d{3}\b/g)
-      res.status(status).json(err)
+      return status
     }
   }
 
   async getConfig() {
     try {
-      const { data } = await this.client.get('/configuration')
+      const { data } = await this.client.get("/configuration")
       return data
     } catch (error) {
       return error
