@@ -1,4 +1,4 @@
-import '@emotion/react'
+import "@emotion/react"
 
 interface ColorLevels {
   50: string
@@ -13,7 +13,7 @@ interface ColorLevels {
   900: string
 }
 
-declare module '@emotion/react' {
+declare module "@emotion/react" {
   export interface Theme {
     colors: {
       green: ColorLevels
@@ -35,6 +35,7 @@ declare module '@emotion/react' {
     }
     maxWidth: string
     shadow: {
+      xs: string
       sm: string
       md: string
     }
