@@ -16,17 +16,6 @@ export default function Home({
   movies: Movie[]
   error?: string
 }): JSX.Element {
-  const router = useRouter()
-  const [searchQuery, setSearchQuery] = useState("")
-  const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    event.preventDefault()
-    setSearchQuery(event.currentTarget.value)
-  }
-
-  const searchMovie = async () => {
-    router.push(`/search/${searchQuery}`)
-  }
-
   if (error)
     return (
       <Layout>
@@ -35,11 +24,7 @@ export default function Home({
     )
   return (
     <Layout>
-      <SearchBox
-        handleInputChange={handleInputChange}
-        searchQuery={searchQuery}
-        searchMovie={searchMovie}
-      />
+      <SearchBox />
       <div
         css={css`
           max-width: 88%;

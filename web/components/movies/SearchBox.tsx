@@ -1,9 +1,9 @@
-import styled from '@emotion/styled'
-import { ChangeEventHandler } from 'react'
+import useSearchInput from "@/lib/hooks/useSearchInput"
+import styled from "@emotion/styled"
 
-const Container = styled.div`
-  background: url('/drivein-theatre.jpeg') no-repeat center;
-  height: 36rem;
+const Container = styled.div<SearchBoxProps>`
+  background: url("/drivein-theatre.jpeg") no-repeat center;
+  height: ${(props) => (props.short ? "14rem" : "36rem")};
   width: 88%;
   background-size: cover;
   margin: 4rem auto;
@@ -12,10 +12,10 @@ const Container = styled.div`
   box-shadow: 8px 8px 12px #9c9c9c, -8px -8px 12px #fcfcfc;
 `
 
-const SearchWrapper = styled.div`
+const SearchWrapper = styled.div<SearchBoxProps>`
   width: 65%;
   position: absolute;
-  top: 65%;
+  top: ${(props) => (props.short ? "50%" : "65%")};
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 0.75rem;
@@ -35,16 +35,20 @@ const SearchButton = styled.button`
   border-radius: 0.75rem;
   width: 16rem;
   height: 4.2rem;
-  background-color: ${(props) => props.theme.colors.red['500']};
-  color: ${(props) => props.theme.colors.red['50']};
+  background-color: ${(props) => props.theme.colors.red["500"]};
+  color: ${(props) => props.theme.colors.red["50"]};
   text-transform: uppercase;
   font-weight: 600;
   font-size: 1.8rem;
   border: 0;
 
   :disabled {
-    background-color: ${(props) => props.theme.colors.gray['700']};
-    color: ${(props) => props.theme.colors.gray['100']};
+    background-color: ${(props) => props.theme.colors.gray["700"]};
+    color: ${(props) => props.theme.colors.gray["100"]};
+
+    :hover {
+      transform: none;
+    }
   }
 
   :hover {
@@ -53,33 +57,28 @@ const SearchButton = styled.button`
 
   :active {
     transform: scale(0.95) translateY(1px);
-    background-color: ${(props) => props.theme.colors.red['700']};
-    color: ${(props) => props.theme.colors.red['100']};
+    background-color: ${(props) => props.theme.colors.red["700"]};
+    color: ${(props) => props.theme.colors.red["100"]};
   }
 `
 
-interface SearchBoxProps {
-  searchQuery: string
-  handleInputChange: ChangeEventHandler<HTMLInputElement>
-  searchMovie: () => void
+interface SearchBoxProps extends React.HTMLProps<HTMLDivElement> {
+  short?: boolean
 }
 
-export default function SearchBox({
-  searchQuery,
-  handleInputChange,
-  searchMovie,
-}: SearchBoxProps): JSX.Element {
+export default function SearchBox({ short }: SearchBoxProps): JSX.Element {
+  const { searchMovie, searchQuery, setSearchQuery } = useSearchInput()
   const searchOnEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === 'Enter') {
+    if (e.code === "Enter") {
       searchMovie()
     }
   }
   return (
-    <Container>
-      <SearchWrapper>
+    <Container short={short}>
+      <SearchWrapper short={short}>
         <Input
           value={searchQuery}
-          onChange={handleInputChange}
+          onChange={(e) => setSearchQuery(e?.currentTarget?.value)}
           onKeyPress={searchOnEnter}
           placeholder="Search Movie titles..."
         />
