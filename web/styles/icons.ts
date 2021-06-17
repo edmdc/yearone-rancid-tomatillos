@@ -19,6 +19,10 @@ export const iconSize = {
     height: 3.3rem;
     width: 3.3rem;
   `,
+  lg: css`
+    height: 4.5rem;
+    width: 4.5rem;
+  `,
 }
 
 export const iconColors = {
@@ -27,6 +31,9 @@ export const iconColors = {
   `,
   secondary: css`
     fill: ${theme.colors.gray["200"]};
+  `,
+  dark: css`
+    fill: ${theme.colors.gray["500"]};
   `,
   social: css`
     fill: ${theme.colors.red["50"]};
