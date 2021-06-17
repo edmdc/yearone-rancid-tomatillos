@@ -10,11 +10,13 @@ import {
   Tagline,
 } from "@/components/movies/MovieDetails"
 import Ratings from "@/components/movies/Ratings"
+import Credits from "@/components/movies/Credits"
 import { H2, H4 } from "@/styles/typography"
 import TmdbClient, { Movie } from "@/lib/api/tmdbClient"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import Footer from "@/components/layout/Footer"
+import useVotes from "@/lib/hooks/useVotes"
 
 type Votes = {
   upVotes: number
@@ -46,51 +48,9 @@ const initialVotes: Votes = {
 export default function SingleMovieModal({ movie, errors }: SingleMovieProps) {
   const router = useRouter()
   const { movieId } = router.query
+  const { votes, error, upVote, downVote } = useVotes(movieId)
   const [movieVotes, updateVotes] = useState<Votes>(initialVotes)
   const [voteError, setError] = useState("")
-
-  useEffect(() => {
-    const findMovieVotes = async () => {
-      try {
-        const res2 = await fetch(`http://localhost:8081/v1/ratings/${movieId}`)
-        const { UpVotes, DownVotes } = await res2.json()
-        updateVotes(() => ({ upVotes: UpVotes, downVotes: DownVotes }))
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    findMovieVotes()
-  }, [])
-
-  const upVoteMovie = async () => {
-    try {
-      const res = await fetch(
-        `http://localhost:8081/v1/ratings/${movieId}/upvote`,
-        {
-          method: "POST",
-        },
-      )
-      const { UpVotes } = await res.json()
-      updateVotes(() => ({ ...movieVotes, upVotes: UpVotes }))
-    } catch (err) {
-      setError(`${err.message}. Could not record your vote. Sorry!`)
-    }
-  }
-
-  const downVoteMovie = async () => {
-    try {
-      const res = await fetch(
-        `http://localhost:8081/v1/ratings/${movieId}/downvote`,
-        {
-          method: "POST",
-        },
-      )
-      const { DownVotes } = await res.json()
-      updateVotes(() => ({ ...movieVotes, downVotes: DownVotes }))
-    } catch (err) {
-      setError(`${err.message}. Could not record your vote. Sorry!`)
-    }
-  }
 
   useEffect(() => {
     if (voteError !== "") {
@@ -124,10 +84,10 @@ export default function SingleMovieModal({ movie, errors }: SingleMovieProps) {
             </MovieText>
           </MovieTitle>
           <Ratings
-            upVotes={movieVotes?.upVotes}
-            downVotes={movieVotes?.downVotes}
-            upVoteMovie={upVoteMovie}
-            downVoteMovie={downVoteMovie}
+            upVotes={votes?.upVotes}
+            downVotes={votes?.downVotes}
+            upVoteMovie={upVote}
+            downVoteMovie={downVote}
           />
           {errors?.ratings && <span>{errors.ratings}</span>}
           <Tagline>{movie?.tagline}</Tagline>
@@ -135,6 +95,7 @@ export default function SingleMovieModal({ movie, errors }: SingleMovieProps) {
           <MovieText>{movie?.overview}</MovieText>
         </MovieInfo>
       </MovieContainer>
+      <Credits movieId={movieId} />
       <Footer />
     </div>
   )
