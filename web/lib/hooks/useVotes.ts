@@ -1,17 +1,7 @@
 import useSWR, { mutate } from "swr"
+import fetcher from "../utils/fetcher"
 
-const fetcher = async (url) => {
-  const res = await fetch(url)
-
-  if (!res.ok) {
-    const error = new Error(`${res.status} - ${res.statusText}`)
-    throw error
-  }
-
-  return res.json()
-}
-
-const useVotes = (movieId) => {
+const useVotes = (movieId: string) => {
   let errorCatch
   const { data, error } = useSWR(
     `http://localhost:8081/v1/ratings/${movieId}`,
