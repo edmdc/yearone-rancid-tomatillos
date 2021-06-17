@@ -1,8 +1,14 @@
-import { iconColors, socialIconStyles } from '@/styles/icons'
+import { iconColors, iconSize } from "@/styles/icons"
+import { css } from "@emotion/react"
 
 const LinkedInIcon = () => (
   <a
-    css={socialIconStyles}
+    css={[
+      iconSize.md,
+      css`
+        margin: 1rem;
+      `,
+    ]}
     href="https://www.linkedin.com/in/edmdc"
     target="_blank"
     rel="noreferrer"
