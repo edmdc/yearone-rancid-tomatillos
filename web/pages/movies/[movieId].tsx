@@ -1,6 +1,6 @@
-import { GetStaticPaths, GetStaticProps } from 'next'
-import Image from 'next/image'
-import Header from '@/components/layout/Header'
+import { GetStaticPaths, GetStaticProps } from "next"
+import Image from "next/image"
+import Header from "@/components/layout/Header"
 import {
   MovieContainer,
   MovieInfo,
@@ -8,17 +8,17 @@ import {
   MovieText,
   MovieTitle,
   Tagline,
-} from '@/components/movies/MovieDetails'
-import Ratings from '@/components/movies/Ratings'
-import { H2, H4 } from '@/styles/typography'
-import { Movie } from '@/lib/api/tmdbClient'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import Footer from '@/components/layout/Footer'
+} from "@/components/movies/MovieDetails"
+import Ratings from "@/components/movies/Ratings"
+import { H2, H4 } from "@/styles/typography"
+import TmdbClient, { Movie } from "@/lib/api/tmdbClient"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
+import Footer from "@/components/layout/Footer"
 
 type Votes = {
-  UpVotes: number
-  DownVotes: number
+  upVotes: number
+  downVotes: number
 }
 
 type Errors = {
@@ -28,37 +28,50 @@ type Errors = {
 
 interface SingleMovieProps {
   movie: Movie
-  votes: Votes
   errors?: Errors
 }
 
-const rootImgSrc = 'https://image.tmdb.org/t/p/w500'
+const rootImgSrc = "https://image.tmdb.org/t/p/w500"
 const formatRuntime = (runtime: number): string => {
   const hrs = Math.floor(runtime / 60)
   const min = runtime % 60
   return hrs ? `${hrs}h ${min}m` : `${min}m`
 }
 
-export default function SingleMovieModal({
-  movie,
-  votes,
-  errors,
-}: SingleMovieProps) {
+const initialVotes: Votes = {
+  upVotes: 0,
+  downVotes: 0,
+}
+
+export default function SingleMovieModal({ movie, errors }: SingleMovieProps) {
   const router = useRouter()
-  const { query } = router
-  const [movieVotes, updateVotes] = useState<Votes>(votes)
-  const [voteError, setError] = useState('')
+  const { movieId } = router.query
+  const [movieVotes, updateVotes] = useState<Votes>(initialVotes)
+  const [voteError, setError] = useState("")
+
+  useEffect(() => {
+    const findMovieVotes = async () => {
+      try {
+        const res2 = await fetch(`http://localhost:8081/v1/ratings/${movieId}`)
+        const { UpVotes, DownVotes } = await res2.json()
+        updateVotes(() => ({ upVotes: UpVotes, downVotes: DownVotes }))
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    findMovieVotes()
+  }, [])
 
   const upVoteMovie = async () => {
     try {
       const res = await fetch(
-        `http://localhost:8081/v1/ratings/${query.movieId}/upvote`,
+        `http://localhost:8081/v1/ratings/${movieId}/upvote`,
         {
-          method: 'POST',
+          method: "POST",
         },
       )
       const { UpVotes } = await res.json()
-      updateVotes(() => ({ ...movieVotes, UpVotes }))
+      updateVotes(() => ({ ...movieVotes, upVotes: UpVotes }))
     } catch (err) {
       setError(`${err.message}. Could not record your vote. Sorry!`)
     }
@@ -67,22 +80,22 @@ export default function SingleMovieModal({
   const downVoteMovie = async () => {
     try {
       const res = await fetch(
-        `http://localhost:8081/v1/ratings/${query.movieId}/downvote`,
+        `http://localhost:8081/v1/ratings/${movieId}/downvote`,
         {
-          method: 'POST',
+          method: "POST",
         },
       )
       const { DownVotes } = await res.json()
-      updateVotes(() => ({ ...movieVotes, DownVotes }))
+      updateVotes(() => ({ ...movieVotes, downVotes: DownVotes }))
     } catch (err) {
       setError(`${err.message}. Could not record your vote. Sorry!`)
     }
   }
 
   useEffect(() => {
-    if (voteError !== '') {
+    if (voteError !== "") {
       alert(voteError)
-      setError('')
+      setError("")
     }
   }, [voteError])
 
@@ -106,13 +119,13 @@ export default function SingleMovieModal({
               <span>({new Date(movie?.release_date).getFullYear()})</span>
             </H2>
             <MovieText>
-              {movie?.genres.map((genre) => genre.name).join(', ')} ●{' '}
+              {movie?.genres?.map((genre) => genre.name).join(", ")} ●{" "}
               {formatRuntime(movie?.runtime)}
             </MovieText>
           </MovieTitle>
           <Ratings
-            upVotes={movieVotes?.UpVotes}
-            downVotes={movieVotes?.DownVotes}
+            upVotes={movieVotes?.upVotes}
+            downVotes={movieVotes?.downVotes}
             upVoteMovie={upVoteMovie}
             downVoteMovie={downVoteMovie}
           />
@@ -128,38 +141,27 @@ export default function SingleMovieModal({
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  const tmdbClient = new TmdbClient()
   const { movieId } = context.params
-  let votes: Votes = {
-    UpVotes: 0,
-    DownVotes: 0,
-  }
-  let errors = {
+  const errors = {
     tmdb: null,
     ratings: null,
   }
   let movieData: Movie
 
   try {
-    const res = await fetch(`http://localhost:8080/api/movies/${movieId}`)
-    const data = await res.json()
+    const data = await tmdbClient.getSingleMovie(
+      Number.parseInt(String(movieId), 10),
+    )
     movieData = data
   } catch (err) {
     errors.tmdb = err.message
-  }
-
-  try {
-    const res2 = await fetch(`http://localhost:8081/v1/ratings/${movieId}`)
-    const { UpVotes, DownVotes } = await res2.json()
-    votes = { UpVotes, DownVotes }
-  } catch (err) {
-    errors.ratings = err.message
   }
 
   return {
     props: {
       movie: movieData,
       error: errors,
-      votes,
     },
   }
 }
