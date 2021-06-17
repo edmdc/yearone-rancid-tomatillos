@@ -23,4 +23,11 @@ export default css`
   * {
     box-sizing: border-box;
   }
+
+  span,
+  p {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 400;
+  }
 `
