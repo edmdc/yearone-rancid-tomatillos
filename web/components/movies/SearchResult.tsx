@@ -49,7 +49,7 @@ const SearchResult = ({ movie }: { movie: Movie }) => {
   const router = useRouter()
   const rootImgSrc = "https://image.tmdb.org/t/p/w185"
   return (
-    <ResultWrapper onClick={() => router.push(`/movies/${movie.id}`)}>
+    <ResultWrapper onClick={() => router.push(`/movie/${movie.id}`)}>
       {movie?.poster_path ? (
         <Image
           src={rootImgSrc + movie.poster_path}

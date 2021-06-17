@@ -1,10 +1,10 @@
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-import { Movie } from '@/lib/api/tmdbClient'
-import ImgFallback from './ImgFallback'
-import { RightChevron } from '../icons'
+import Image from "next/image"
+import { useRouter } from "next/router"
+import { css } from "@emotion/react"
+import styled from "@emotion/styled"
+import { Movie } from "@/lib/api/tmdbClient"
+import ImgFallback from "./ImgFallback"
+import { RightChevron } from "../icons"
 
 export const Thumbnail = styled.article`
   position: relative;
@@ -34,7 +34,7 @@ const Title = styled.p`
   font-size: 1.8rem;
   line-height: 2.4rem;
   font-weight: 700;
-  color: ${(props) => props.theme.colors.gray['900']};
+  color: ${(props) => props.theme.colors.gray["900"]};
   text-align: left;
   width: 80%;
   margin: 0.5rem auto 0.3rem;
@@ -47,13 +47,13 @@ interface ThumbnailProps {
 
 const MovieThumbnail = ({ movie }: ThumbnailProps): JSX.Element => {
   const router = useRouter()
-  const rootImgSrc = 'https://image.tmdb.org/t/p/w185'
+  const rootImgSrc = "https://image.tmdb.org/t/p/w185"
 
   const formatTitle = (title: string): string =>
-    title.length > 28 ? title.slice(0, 24).concat('...') : title
+    title.length > 28 ? title.slice(0, 24).concat("...") : title
 
   const showDetails = (movieId: number) => {
-    router.push(`/movies/${movieId}`)
+    router.push(`/movie/${movieId}`)
   }
 
   return (
