@@ -5,7 +5,7 @@ import { css } from "@emotion/react"
 import styled from "@emotion/styled"
 import { Movie } from "@/lib/api/tmdbClient"
 import { H5 } from "@/styles/typography"
-import ImgFallback from "./ImgFallback"
+import { NoImageIcon } from "../icons"
 
 const ResultWrapper = styled.div`
   position: relative;
@@ -38,8 +38,8 @@ const Description = styled.p`
 
 const formatDescription = (str: string) => {
   let description = str.split(" ")
-  if (description.length > 33) {
-    description = description.slice(0, 33)
+  if (description.length > 30) {
+    description = description.slice(0, 30)
     return `${description.join(" ")} ...`
   }
   return description.join(" ")
@@ -63,7 +63,7 @@ const SearchResult = ({ movie }: { movie: Movie }) => {
           `}
         />
       ) : (
-        <ImgFallback />
+        <NoImageIcon />
       )}
       <ResultContent>
         <H5>{movie.title}</H5>

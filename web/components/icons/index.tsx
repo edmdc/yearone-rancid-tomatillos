@@ -5,6 +5,7 @@ import GithubIcon from "./GithubIcon"
 import LinkedInIcon from "./LinkedInIcon"
 import FilmIcon from "./FilmIcon"
 import ProfileIcon from "./ProfileIcon"
+import NoImageIcon from "./NoImageIcon"
 
 export {
   RightChevron,
@@ -14,4 +15,5 @@ export {
   LinkedInIcon,
   FilmIcon,
   ProfileIcon,
+  NoImageIcon,
 }
