@@ -1,7 +1,7 @@
 import Image from "next/image"
 import imgPath from "@/lib/utils/imgPath"
 import styled from "@emotion/styled"
-import { css, useTheme } from "@emotion/react"
+import { css } from "@emotion/react"
 import { ProfileIcon } from "@/components/icons"
 
 interface TableRowProps extends React.HTMLProps<HTMLTableRowElement> {
@@ -26,47 +26,56 @@ const TableRow = styled.tr<TableRowProps>`
   }
 `
 
-interface ProfileRowProps {
+const ImageWrapper = styled.div`
+  height: 8rem;
+  width: 6rem;
+  position: relative;
+`
+
+const ImgFallbackWrapper = styled.div`
+  height: 8rem;
+  width: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.colors.gray["200"]};
+  border-radius: 0.5rem;
+`
+
+interface CreditRowProps {
   profileImgPath: string
   name: string
   role: string
   oddHighlight?: boolean
 }
 
-const ProfileRow = ({
+const CreditRow = ({
   profileImgPath,
   name,
   role,
   oddHighlight,
-}: ProfileRowProps): JSX.Element => {
+}: CreditRowProps): JSX.Element => {
   const imgRootPath = imgPath("profile", 1)
-  const theme = useTheme()
+
   return (
     <TableRow odd={oddHighlight}>
       {profileImgPath ? (
-        <Image
-          src={imgRootPath + profileImgPath}
-          alt={`${name}`}
-          width={45}
-          height={70}
-          css={css`
-            border-radius: 0.5rem;
-          `}
-        />
+        <ImageWrapper>
+          <Image
+            src={imgRootPath + profileImgPath}
+            alt={`${name}`}
+            layout="fill"
+            objectFit="cover"
+            objectPosition="center"
+            css={css`
+              border-radius: 0.5rem;
+            `}
+          />
+        </ImageWrapper>
       ) : (
-        <div
-          css={css`
-            height: 7rem;
-            width: 5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: ${theme.colors.gray["200"]};
-            border-radius: 0.5rem;
-          `}
-        >
+        <ImgFallbackWrapper>
           <ProfileIcon />
-        </div>
+        </ImgFallbackWrapper>
       )}
       <td>
         <span
@@ -84,4 +93,4 @@ const ProfileRow = ({
   )
 }
 
-export default ProfileRow
+export default CreditRow
