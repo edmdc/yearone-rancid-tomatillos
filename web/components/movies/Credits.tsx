@@ -1,7 +1,7 @@
 import { H4 } from "@/styles/typography"
 import { Cast, Crew } from "@/lib/api/tmdbClient"
 import useCredits from "@/lib/hooks/useCredits"
-import ProfileRow from "@/components/movies/ProfileRow"
+import CreditRow from "@/components/movies/CreditRow"
 import styled from "@emotion/styled"
 
 const CreditsWrapper = styled.section`
@@ -36,7 +36,7 @@ const Credits = ({ movieId }: { movieId: string }) => {
         <Table>
           <tbody>
             {cast?.map((member: Cast) => (
-              <ProfileRow
+              <CreditRow
                 key={member.cast_id}
                 profileImgPath={member.profile_path}
                 name={member.name}
@@ -52,7 +52,7 @@ const Credits = ({ movieId }: { movieId: string }) => {
         <Table>
           <tbody>
             {crew?.map((member: Crew) => (
-              <ProfileRow
+              <CreditRow
                 key={member.credit_id}
                 profileImgPath={member.profile_path}
                 name={member.name}

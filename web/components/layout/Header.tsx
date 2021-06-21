@@ -12,6 +12,8 @@ const HeaderWrapper = styled.header`
 const Title = styled.a`
   display: flex;
   align-items: center;
+  cursor: pointer;
+  width: max-content;
 
   span {
     color: ${(props) => props.theme.colors.red["50"]};
