@@ -1,4 +1,3 @@
-import { ChangeEventHandler, useState } from "react"
 import { css } from "@emotion/react"
 import { GetStaticProps } from "next"
 import TmdbClient, { Movie } from "@/lib/api/tmdbClient"
@@ -6,7 +5,7 @@ import Layout from "@/components/layout"
 import Row from "@/components/layout/Row"
 import SearchBox from "@/components/movies/SearchBox"
 import MovieThumbnail from "@/components/movies/Thumbnail"
-import { H4 } from "@/styles/typography"
+import { H4, H5 } from "@/styles/typography"
 import { useRouter } from "next/router"
 
 export default function Home({
@@ -16,12 +15,6 @@ export default function Home({
   movies: Movie[]
   error?: string
 }): JSX.Element {
-  if (error)
-    return (
-      <Layout>
-        <h2>{error}</h2>
-      </Layout>
-    )
   return (
     <Layout>
       <SearchBox />
@@ -35,11 +28,15 @@ export default function Home({
         `}
       >
         <H4>Trending</H4>
-        <Row>
-          {movies.map((movie) => (
-            <MovieThumbnail movie={movie} key={movie.id} />
-          ))}
-        </Row>
+        {error ? (
+          <H5>{error}</H5>
+        ) : (
+          <Row>
+            {movies.map((movie) => (
+              <MovieThumbnail movie={movie} key={movie.id} />
+            ))}
+          </Row>
+        )}
       </div>
     </Layout>
   )
@@ -52,7 +49,7 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
       props: {
         movies: [],
-        error: data.message,
+        error: "Something went wrong. Could not load resources.",
       },
     }
   }
