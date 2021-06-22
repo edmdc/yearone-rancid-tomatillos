@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next"
 import Image from "next/image"
-import Header from "@/components/layout/Header"
+import Layout from "@/components/layout"
 import {
   MovieContainer,
   MovieInfo,
@@ -15,7 +15,6 @@ import { H2, H4 } from "@/styles/typography"
 import TmdbClient, { Movie } from "@/lib/api/tmdbClient"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import Footer from "@/components/layout/Footer"
 import useVotes from "@/lib/hooks/useVotes"
 
 type Votes = {
@@ -40,16 +39,10 @@ const formatRuntime = (runtime: number): string => {
   return hrs ? `${hrs}h ${min}m` : `${min}m`
 }
 
-const initialVotes: Votes = {
-  upVotes: 0,
-  downVotes: 0,
-}
-
 export default function SingleMovieModal({ movie, errors }: SingleMovieProps) {
   const router = useRouter()
   const { movieId } = router.query
-  const { votes, error, upVote, downVote } = useVotes(movieId)
-  const [movieVotes, updateVotes] = useState<Votes>(initialVotes)
+  const { votes, upVote, downVote } = useVotes(String(movieId))
   const [voteError, setError] = useState("")
 
   useEffect(() => {
@@ -60,8 +53,7 @@ export default function SingleMovieModal({ movie, errors }: SingleMovieProps) {
   }, [voteError])
 
   return (
-    <div>
-      <Header />
+    <Layout>
       <MovieContainer backDropUrl={movie?.backdrop_path}>
         <MoviePoster>
           <Image
@@ -95,9 +87,8 @@ export default function SingleMovieModal({ movie, errors }: SingleMovieProps) {
           <MovieText>{movie?.overview}</MovieText>
         </MovieInfo>
       </MovieContainer>
-      <Credits movieId={movieId} />
-      <Footer />
-    </div>
+      <Credits movieId={String(movieId)} />
+    </Layout>
   )
 }
 
@@ -116,7 +107,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     )
     movieData = data
   } catch (err) {
-    errors.tmdb = err.message
+    console.log(err)
   }
 
   return {
