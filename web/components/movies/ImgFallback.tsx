@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
-import Image from 'next/image'
+import styled from "@emotion/styled"
+import Image from "next/image"
 
 const Wrapper = styled.div`
   width: 19rem;
@@ -12,7 +12,6 @@ const Wrapper = styled.div`
   padding-top: 3rem;
   border-radius: 2.5rem;
 `
-// linearGradient id="linear-gradient" y1="66.7" x2="185.04" y2="66.7" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#90cea1"/><stop offset="0.56" stop-color="#3cbec9"/><stop offset="1" stop-color="#00b3e5"/></linearGradient>
 const Message = styled.p`
   font-size: 2.4rem;
   line-height: 3.6rem;

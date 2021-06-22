@@ -26,7 +26,6 @@ const NoImageIcon = () => {
           width: 12rem;
           z-index: 5;
         `}
-        // background-color: blue;
       >
         <path
           css={[
