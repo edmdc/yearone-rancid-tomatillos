@@ -6,7 +6,7 @@ const useSearchInput = () => {
   const [searchQuery, setSearchQuery] = useState("")
 
   const searchMovie = async () => {
-    router.push(`/search/${searchQuery}`)
+    router.push(`/search/${searchQuery.toLowerCase()}/1`)
   }
 
   return {
