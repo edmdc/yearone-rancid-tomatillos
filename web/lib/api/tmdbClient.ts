@@ -79,9 +79,11 @@ export default class TmdbClient {
     }
   }
 
-  async searchMovies(query: string): Promise<TmdbResponse> {
+  async searchMovies(query: string, page = 1): Promise<TmdbResponse> {
     try {
-      const { data } = await this.client.get(`/search/movie?query=${query}`)
+      const { data } = await this.client.get(
+        `/search/movie?query=${encodeURI(query)}&page=${page}`,
+      )
       return data
     } catch (err) {
       const status = err.message.match(/\b\d{3}\b/g)
