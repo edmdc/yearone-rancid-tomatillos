@@ -13,7 +13,7 @@ services:
       - /app/.next
     env_file:
       - ./web/.env.local
-    restart: always
+    restart: on-failure
     links:
       - api
     networks:
