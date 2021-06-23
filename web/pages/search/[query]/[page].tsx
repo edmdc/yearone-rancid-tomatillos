@@ -45,6 +45,10 @@ export default function Search({
                 <SearchResult movie={movie} key={movie.id} />
               ))}
             </Grid>
+            <PaginationBar
+              currentPage={movieData?.page}
+              totalPages={movieData?.total_pages}
+            />
             )
           </>
         )}
