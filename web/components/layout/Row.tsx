@@ -1,7 +1,6 @@
-import styled from '@emotion/styled'
-import { Thumbnail } from '../movies/Thumbnail'
+import styled from "@emotion/styled"
+import { Thumbnail } from "../movies/Thumbnail"
 
-// align-items: center;
 const Row = styled.section`
   display: flex;
   flex-flow: row no-wrap;
