@@ -6,7 +6,6 @@ import Row from "@/components/layout/Row"
 import SearchBox from "@/components/movies/SearchBox"
 import MovieThumbnail from "@/components/movies/Thumbnail"
 import { H4, H5 } from "@/styles/typography"
-import { useRouter } from "next/router"
 
 export default function Home({
   movies,
