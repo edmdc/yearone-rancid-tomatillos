@@ -1,5 +1,6 @@
 import { css } from "@emotion/react"
 import { GetStaticProps } from "next"
+import Head from "next/head"
 import TmdbClient, { Movie } from "@/lib/api/tmdbClient"
 import Layout from "@/components/layout"
 import Row from "@/components/layout/Row"
@@ -16,6 +17,9 @@ export default function Home({
 }): JSX.Element {
   return (
     <Layout>
+      <Head>
+        <title>Rancid Tomatillos</title>
+      </Head>
       <SearchBox />
       <div
         css={css`
