@@ -6,6 +6,7 @@ const GithubIcon = () => (
     css={[
       iconSize.md,
       css`
+        position: relative;
         margin: 1rem;
       `,
     ]}
@@ -13,6 +14,14 @@ const GithubIcon = () => (
     target="_blank"
     rel="noreferrer"
   >
+    <span
+      css={css`
+        position: absolute;
+        right: -9999rem;
+      `}
+    >
+      Edwin Montealvo&#39;s GitHub
+    </span>
     <svg
       aria-hidden="true"
       focusable="false"

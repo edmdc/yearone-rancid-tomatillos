@@ -6,6 +6,7 @@ const LinkedInIcon = () => (
     css={[
       iconSize.md,
       css`
+        position: relative;
         margin: 1rem;
       `,
     ]}
@@ -13,6 +14,14 @@ const LinkedInIcon = () => (
     target="_blank"
     rel="noreferrer"
   >
+    <span
+      css={css`
+        position: absolute;
+        right: -9999rem;
+      `}
+    >
+      Edwin Montealvo&#39;s LinkedIn
+    </span>
     <svg
       aria-hidden="true"
       focusable="false"
