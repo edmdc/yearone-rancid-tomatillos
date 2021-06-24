@@ -5,6 +5,7 @@ import styled from "@emotion/styled"
 import { Movie } from "@/lib/api/tmdbClient"
 import ImgFallback from "./ImgFallback"
 import { RightChevron } from "../icons"
+import imgPath from "@/lib/utils/imgPath"
 
 export const Thumbnail = styled.article`
   position: relative;
@@ -45,9 +46,10 @@ interface ThumbnailProps {
   movie: Movie
 }
 
+const rootImgSrc = imgPath("poster", 4)
+
 const MovieThumbnail = ({ movie }: ThumbnailProps): JSX.Element => {
   const router = useRouter()
-  const rootImgSrc = "https://image.tmdb.org/t/p/w185"
 
   const formatTitle = (title: string): string =>
     title.length > 28 ? title.slice(0, 24).concat("...") : title
