@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next"
+import Head from "next/head"
 import Image from "next/image"
 import Layout from "@/components/layout"
 import {
@@ -16,11 +17,6 @@ import TmdbClient, { Movie } from "@/lib/api/tmdbClient"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import useVotes from "@/lib/hooks/useVotes"
-
-type Votes = {
-  upVotes: number
-  downVotes: number
-}
 
 type Errors = {
   tmdb?: string
@@ -54,6 +50,9 @@ export default function SingleMovieModal({ movie, errors }: SingleMovieProps) {
 
   return (
     <Layout>
+      <Head>
+        <title>Rancid Tomatillos - Single Movie Details</title>
+      </Head>
       <MovieContainer backDropUrl={movie?.backdrop_path}>
         <MoviePoster>
           <Image

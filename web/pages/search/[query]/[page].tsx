@@ -1,5 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next"
 import Link from "next/link"
+import Head from "next/head"
 import styled from "@emotion/styled"
 import TmdbClient, { Movie, TmdbResponse } from "@/lib/api/tmdbClient"
 import { H4 } from "@/styles/typography"
@@ -31,6 +32,9 @@ export default function Search({
 }) {
   return (
     <Layout>
+      <Head>
+        <title>Rancid Tomatillos - Search Results</title>
+      </Head>
       <SearchBox short />
       <Results>
         {!movieData && !error && <span>Loading</span>}
