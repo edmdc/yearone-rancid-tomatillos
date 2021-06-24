@@ -110,10 +110,10 @@ export default function PaginationBar({
         if (page === LEFT_PAGE)
           return (
             <>
-              <Link href={`/search/${query}/${currentPage - 3}`}>
+              <Link href={`/search/${query}/${currentPage - 3}`} passHref>
                 <PageCell>&laquo;</PageCell>
               </Link>
-              <Link href={`/search/${query}/${currentPage - 1}`}>
+              <Link href={`/search/${query}/${currentPage - 1}`} passHref>
                 <PageCell>&lt;</PageCell>
               </Link>
             </>
@@ -121,16 +121,16 @@ export default function PaginationBar({
         if (page === RIGHT_PAGE)
           return (
             <>
-              <Link href={`/search/${query}/${currentPage + 1}`}>
+              <Link href={`/search/${query}/${currentPage + 1}`} passHref>
                 <PageCell>&gt;</PageCell>
               </Link>
-              <Link href={`/search/${query}/${currentPage + 3}`}>
+              <Link href={`/search/${query}/${currentPage + 3}`} passHref>
                 <PageCell>&raquo;</PageCell>
               </Link>
             </>
           )
         return (
-          <Link href={`/search/${query}/${page}`}>
+          <Link href={`/search/${query}/${page}`} passHref>
             <PageCell selected={currentPage === page}>{page}</PageCell>
           </Link>
         )
