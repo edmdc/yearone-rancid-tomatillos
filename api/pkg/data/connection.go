@@ -3,6 +3,7 @@ package data
 import (
 	"context"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/edmdc/yearone-rancid-tomatillos/api/pkg/config"
@@ -17,7 +18,15 @@ type Connection struct {
 }
 
 func ConnectDb(config *config.Settings) Connection {
-	uri := fmt.Sprintf("mongodb://%s:%s@%s/?w=majority", config.DbUser, config.DbPassword, config.DbCluster)
+  var prefix string
+
+  if strings.Contains(config.DbCluster, "27017") {
+    prefix = "mongodb"
+  } else {
+    prefix = "mongodb+srv"
+  }
+
+	uri := fmt.Sprintf("%s://%s:%s@%s/?w=majority", prefix, config.DbUser, config.DbPassword, config.DbCluster)
 	opts := options.Client().ApplyURI(uri)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
