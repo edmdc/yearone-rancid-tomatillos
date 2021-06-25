@@ -18,30 +18,13 @@ services:
     ports:
       - 8081:8081
     environment:
-      MONGO_INITDB_ROOT_USERNAME: "${MONGO_INITDB_ROOT_USERNAME}"
-      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_INITDB_ROOT_PASSWORD}"
-      MONGO_INITDB_ROOT_DATABASE: "${MONGO_INITDB_ROOT_DATABASE}"
-      MONGO_HOST: "${MONGO_HOST}"
+      MONGO_USERNAME: "${MONGO_ATLAS_USERNAME}"
+      MONGO_PASSWORD: "${MONGO_ATLAS_PASSWORD}"
+      MONGO_DATABASE: "${MONGO_ATLAS_DATABASE}"
+      MONGO_CLUSTER: "${MONGO_ATLAS_CLUSTER}"
     restart: always
-    links:
-      - mongodb
     networks:
       - yearone_network
-  mongodb:
-    container_name: mongodb
-    image: mongo:latest
-    ports:
-      - 27017:27017
-    volumes:
-      - ./mongo:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: "${MONGO_INITDB_ROOT_USERNAME}"
-      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_INITDB_ROOT_PASSWORD}"
-      MONGO_INITDB_ROOT_DATABASE: "${MONGO_INITDB_ROOT_DATABASE}"
-    networks:
-      - yearone_network
-volumes:
-  mongo:
 networks:
   yearone_network:
     driver: bridge
