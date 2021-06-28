@@ -8,7 +8,7 @@ export default function Layout({
   children: JSX.Element | JSX.Element[]
 }) {
   return (
-    <>
+    <main>
       <Head>
         <meta name="author" content="Edwin Montealvo" />
         <meta
@@ -23,6 +23,6 @@ export default function Layout({
       <Header />
       {children}
       <Footer />
-    </>
+    </main>
   )
 }
