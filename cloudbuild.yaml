@@ -1,0 +1,10 @@
+steps:
+  - name: 'docker/compose:1.29.2'
+    args: ['up', '-d']
+  - name: 'docker'
+    args: ['tag', 'rancid-tomatillos_web:latest', 'gcr.io/robust-service-318217/rancid-tomatillos-web/$COMMIT_SHA']
+  - name: 'docker'
+    args: ['tag', 'rancid-tomatillos_api:latest', 'gcr.io/robust-service-318217/rancid-tomatillos-api/$COMMIT_SHA']
+images:
+  - 'gcr.io/robust-service-318217/rancid-tomatillos-web/$COMMIT_SHA'
+  - 'gcr.io/robust-service-318217/rancid-tomatillos-api/$COMMIT_SHA'
