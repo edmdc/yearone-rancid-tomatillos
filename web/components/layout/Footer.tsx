@@ -1,9 +1,9 @@
-import styled from '@emotion/styled'
-import Image from 'next/image'
-import { GithubIcon, LinkedInIcon } from '../icons'
+import styled from "@emotion/styled"
+import Image from "next/image"
+import { GithubIcon, LinkedInIcon } from "../icons"
 
 const FooterWrapper = styled.footer`
-  background-color: ${(props) => props.theme.colors.red['600']};
+  background-color: ${(props) => props.theme.colors.red["600"]};
   max-width: ${(props) => props.theme.maxWidth};
   padding: 1rem;
   margin: 10rem auto 0;
@@ -13,13 +13,13 @@ const FooterWrapper = styled.footer`
 `
 
 const AttrText = styled.span`
-  color: ${(props) => props.theme.colors.red['50']};
+  color: ${(props) => props.theme.colors.red["50"]};
   font-weight: 500;
   font-size: 1.6rem;
 `
 
 const AttrLink = styled.a`
-  color: ${(props) => props.theme.colors.red['50']};
+  color: ${(props) => props.theme.colors.red["50"]};
   font-weight: 600;
   font-size: 1.6rem;
   margin: 1rem 0;
