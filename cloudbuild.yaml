@@ -8,3 +8,10 @@ steps:
 images:
   - 'gcr.io/robust-service-318217/rancid-tomatillos-web/$COMMIT_SHA'
   - 'gcr.io/robust-service-318217/rancid-tomatillos-api/$COMMIT_SHA'
+options:
+  env:
+    - 'TMDB_TOKEN=${_TMDB_TOKEN}'
+    - 'MONGO_ATLAS_USERNAME=${_MONGO_ATLAS_USERNAME}'
+    - 'MONGO_ATLAS_PASSWORD=${_MONGO_ATLAS_PASSWORD}'
+    - 'MONGO_ATLAS_DATABASE=${_MONGO_ATLAS_DATABASE}'
+    - 'MONGO_ATLAS_CLUSTER=${_MONGO_ATLAS_CLUSTER}'
