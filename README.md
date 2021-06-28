@@ -1,34 +1,71 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Rancid Tomatillos - YearOne Challenge
 
-## Getting Started
+An application to search and rate movies using
 
-First, run the development server:
+## Requirements
 
-```bash
-npm run dev
-# or
-yarn dev
+- [Docker desktop](https://www.docker.com/products/docker-desktop) minimum version 3.4.0
+- [GNU make](https://www.gnu.org/software/make/) - _optional_
+
+## Commands
+
+- **Build development containers**
+
+```zsh
+make dev_build
+
+# Docker command equivalent
+
+docker compose -f docker-compose.dev.yml build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Start development containers and output logs to current terminal window**
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```zsh
+# Start development processes -
+# Hot Module Reloading in web container
+# Live Reloading in api container
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+make dev_start
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# Docker command equivalent
+docker compose -f docker-compose.dev.yml up
 
-## Learn More
+# Use CTRL-C on terminal window to end running process
+```
 
-To learn more about Next.js, take a look at the following resources:
+- **Build production containers**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```zsh
+make build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# Docker command equivalent
+docker compose build
+```
 
-## Deploy on Vercel
+- **Start production containers as daemon processes**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```zsh
+make start
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Docker command equivalent
+docker compose up -d
+```
+
+- **End background processes**
+
+```zsh
+make end
+
+# Docker command equivalent
+docker compose down
+```
+
+- Clear Docker build cache
+
+```zsh
+make clean
+
+# Docker command equivalent
+docker builder prune
+```
