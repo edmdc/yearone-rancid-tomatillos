@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/edmdc/yearone-rancid-tomatillos/api/pkg/config"
@@ -69,6 +70,11 @@ func (a App) ConfigureRoutes() {
 func (a App) Start() {
 	a.ConfigureRoutes()
 
+  port := os.Getenv("PORT")
+  if port == "" {
+    port = "8081"
+  }
+
 	fmt.Println("Starting server at http://localhost:8081")
-	log.Fatalln(http.ListenAndServe(":8081", a.router))
+	log.Fatalln(http.ListenAndServe(port, a.router))
 }
