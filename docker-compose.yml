@@ -5,9 +5,9 @@ services:
     build: ./web
     ports:
       - 8080:8080
-    env_file:
-      - ./web/.env.local
     restart: always
+    environment:
+      TMDB_TOKEN: "${TMDB_TOKEN}"
     links:
       - api
     networks:
