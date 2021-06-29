@@ -1,10 +1,21 @@
 steps:
-  - name: 'docker/compose:1.29.2'
-    args: ['up', '-d', '--build']
-  - name: 'docker'
-    args: ['tag', 'workspace_app:latest', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
-images:
-  - 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    for dir in */; do
+      config="${dir}cloudbuild.yaml"
+      if [[ ! -f "${config}" ]]; then
+        continue
+      fi
+
+      echo "Building $d ... "
+      (
+        gcloud builds submit $d --config=${config}
+      ) &
+    done
+    wait
 options:
   env:
     - 'TMDB_TOKEN=${_TMDB_TOKEN}'
