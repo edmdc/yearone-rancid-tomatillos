@@ -4,6 +4,7 @@ services:
     container_name: web
     build: ./web
     ports:
+      - 8080:80
       - 8080:8080
     restart: always
     environment:
@@ -16,6 +17,7 @@ services:
     container_name: api
     build: ./api
     ports:
+      - 8081:80
       - 8081:8081
     environment:
       MONGO_USERNAME: "${MONGO_ATLAS_USERNAME}"
