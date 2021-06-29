@@ -1,0 +1,6 @@
+steps:
+  - name: 'docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/rt_web', '.']
+  - name: 'docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/rt_web']
+images: ['gcr.io/$PROJECT_ID/rt_web']
