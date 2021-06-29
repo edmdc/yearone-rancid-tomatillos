@@ -1,13 +1,10 @@
 steps:
   - name: 'docker/compose:1.29.2'
-    args: ['up', '-d']
+    args: ['up', '-d', '--build']
   - name: 'docker'
-    args: ['tag', 'rancid-tomatillos_web:latest', 'gcr.io/robust-service-318217/rancid-tomatillos-web/$COMMIT_SHA']
-  - name: 'docker'
-    args: ['tag', 'rancid-tomatillos_api:latest', 'gcr.io/robust-service-318217/rancid-tomatillos-api/$COMMIT_SHA']
+    args: ['tag', 'workspace_app:latest', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
 images:
-  - 'gcr.io/robust-service-318217/rancid-tomatillos-web/$COMMIT_SHA'
-  - 'gcr.io/robust-service-318217/rancid-tomatillos-api/$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
 options:
   env:
     - 'TMDB_TOKEN=${_TMDB_TOKEN}'
