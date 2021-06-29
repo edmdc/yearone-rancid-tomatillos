@@ -1,16 +1,42 @@
 steps:
   - name: 'docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/rt_api', './api']
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/rancid-tomatillos-api', './api']
   - name: 'docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/rt_api']
+    args: ['push', 'gcr.io/$PROJECT_ID/rancid-tomatillos-api']
   - name: 'docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/rt_web', './web']
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/rancid-tomatillos-web', './web']
   - name: 'docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/rt_web']
-options:
-  env:
-    - 'TMDB_TOKEN=${_TMDB_TOKEN}'
-    - 'MONGO_ATLAS_USERNAME=${_MONGO_ATLAS_USERNAME}'
-    - 'MONGO_ATLAS_PASSWORD=${_MONGO_ATLAS_PASSWORD}'
-    - 'MONGO_ATLAS_DATABASE=${_MONGO_ATLAS_DATABASE}'
-    - 'MONGO_ATLAS_CLUSTER=${_MONGO_ATLAS_CLUSTER}'
+    args: ['push', 'gcr.io/$PROJECT_ID/rancid-tomatillos-web']
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: 
+      - 'run'
+      - 'deploy'
+      - 'rancid-tomatillos-web'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/rancid-tomatillos-web'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--set-env-vars'
+      - 'TMDB_TOKEN=${_TMDB_TOKEN}'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: 
+      - 'run'
+      - 'deploy'
+      - 'rancid-tomatillos-api'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/rancid-tomatillos-api'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--set-env-vars'
+      - 'MONGO_USERNAME=${_MONGO_ATLAS_USERNAME}, MONGO_PASSWORD=${_MONGO_ATLAS_PASSWORD}, MONGO_DATABASE=${_MONGO_ATLAS_DATABASE}, MONGO_CLUSTER=${_MONGO_ATLAS_CLUSTER}'
+images: 
+  - gcr.io/$PROJECT_ID/rancid-tomatillos-web
+  - gcr.io/$PROJECT_ID/rancid-tomatillos-api
