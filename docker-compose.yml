@@ -1,32 +1,50 @@
 version: "3.9"
 services:
   web:
-    container_name: web
-    build: ./web
+    container_name: web_dev
+    build:
+      context: ./web
+      dockerfile: dev.Dockerfile
     ports:
-      - 8080:80
       - 8080:8080
-    restart: always
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+      - /app/.next
     environment:
       TMDB_TOKEN: "${TMDB_TOKEN}"
+      NEXT_PUBLIC_ROOT_URL: "${ROOT_URL}"
+      NEXT_PUBLIC_API_URL: "${API_URL}"
+    restart: on-failure
     links:
       - api
-    networks:
-      - yearone_network
   api:
-    container_name: api
-    build: ./api
+    container_name: api_dev
+    build: 
+      context: ./api
+      dockerfile: dev.Dockerfile
     ports:
-      - 8081:80
       - 8081:8081
+    volumes:
+      - ./api:/usr/local/go/src/app
     environment:
-      MONGO_USERNAME: "${MONGO_ATLAS_USERNAME}"
-      MONGO_PASSWORD: "${MONGO_ATLAS_PASSWORD}"
-      MONGO_DATABASE: "${MONGO_ATLAS_DATABASE}"
-      MONGO_CLUSTER: "${MONGO_ATLAS_CLUSTER}"
+      MONGO_USERNAME: "${MONGO_INITDB_ROOT_USERNAME}"
+      MONGO_PASSWORD: "${MONGO_INITDB_ROOT_PASSWORD}"
+      MONGO_DATABASE: "${MONGO_INITDB_ROOT_DATABASE}"
+      MONGO_CLUSTER: "${MONGO_CLUSTER}"
     restart: always
-    networks:
-      - yearone_network
-networks:
-  yearone_network:
-    driver: bridge
+    links:
+      - mongodb
+  mongodb:
+    container_name: mongodb_dev
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${MONGO_INITDB_ROOT_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_INITDB_ROOT_PASSWORD}"
+      MONGO_INITDB_ROOT_DATABASE: "${MONGO_INITDB_ROOT_DATABASE}"
+volumes:
+  mongo:
