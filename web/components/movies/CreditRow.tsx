@@ -8,24 +8,6 @@ interface TableRowProps extends React.HTMLProps<HTMLTableRowElement> {
   odd?: boolean
 }
 
-const TableRow = styled.tr<TableRowProps>`
-  display: grid;
-  grid-template-columns: 0.5fr 2fr 2fr;
-  background-color: ${(props) => props.theme.colors.gray["50"]};
-  margin: 0.4rem 0;
-  border-radius: 0.5rem;
-  box-shadow: ${(props) => props.theme.shadow.xs};
-
-  :nth-of-type(${(props) => (props.odd ? "odd" : "even")}) {
-    background-color: ${(props) => props.theme.colors.gray["200"]};
-  }
-
-  td {
-    display: flex;
-    align-items: center;
-  }
-`
-
 const ImageWrapper = styled.div`
   height: 8rem;
   width: 6rem;
@@ -38,8 +20,28 @@ const ImgFallbackWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) => props.theme.colors.gray["200"]};
+  background-color: ${(props) => props.theme.colors.gray["300"]};
   border-radius: 0.5rem;
+`
+
+const TableRow = styled.div<TableRowProps>`
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 2fr;
+  background-color: ${(props) => props.theme.colors.gray["50"]};
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  box-shadow: ${(props) => props.theme.shadow.xs};
+
+  :nth-of-type(${(props) => (props.odd ? "odd" : "even")}) {
+    background-color: ${(props) => props.theme.colors.gray["200"]};
+  }
+
+  ${ImageWrapper},
+  ${ImgFallbackWrapper},
+  p {
+    display: flex;
+    align-items: center;
+  }
 `
 
 interface CreditRowProps {
@@ -77,7 +79,7 @@ const CreditRow = ({
           <ProfileIcon />
         </ImgFallbackWrapper>
       )}
-      <td>
+      <p>
         <span
           css={css`
             margin-left: 1rem;
@@ -85,10 +87,10 @@ const CreditRow = ({
         >
           {name}
         </span>
-      </td>
-      <td>
+      </p>
+      <p>
         <span>{role}</span>
-      </td>
+      </p>
     </TableRow>
   )
 }
