@@ -37,6 +37,10 @@ steps:
       - '--allow-unauthenticated'
       - '--set-env-vars'
       - 'MONGO_USERNAME=${_MONGO_ATLAS_USERNAME}, MONGO_PASSWORD=${_MONGO_ATLAS_PASSWORD}, MONGO_DATABASE=${_MONGO_ATLAS_DATABASE}, MONGO_CLUSTER=${_MONGO_ATLAS_CLUSTER}'
+      - '--vpc-connector'
+      - 'rt-connector'
+      - '--vpc-egress'
+      - 'all-traffic'
 images: 
   - gcr.io/$PROJECT_ID/rancid-tomatillos-web
   - gcr.io/$PROJECT_ID/rancid-tomatillos-api
