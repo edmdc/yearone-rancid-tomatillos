@@ -2,16 +2,16 @@ import useSWR, { mutate } from "swr"
 import fetcher from "../utils/fetcher"
 
 const useVotes = (movieId: string) => {
-  let errorCatch
+  let errorCatch: string
   const { data, error } = useSWR(
-    `http://localhost:8081/v1/ratings/${movieId}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/v1/ratings/${movieId}`,
     fetcher,
   )
 
   const voteOnMovie = async (vote: "upvote" | "downvote") => {
     try {
       const res = await fetch(
-        `http://localhost:8081/v1/ratings/${movieId}/${vote}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/ratings/${movieId}/${vote}`,
         {
           method: "POST",
         },
@@ -30,12 +30,12 @@ const useVotes = (movieId: string) => {
     },
     upVote: () =>
       mutate(
-        `http://localhost:8081/v1/ratings/${movieId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/ratings/${movieId}`,
         voteOnMovie("upvote"),
       ),
     downVote: () =>
       mutate(
-        `http://localhost:8081/v1/ratings/${movieId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/ratings/${movieId}`,
         voteOnMovie("downvote"),
       ),
     loading: !data && !error,
