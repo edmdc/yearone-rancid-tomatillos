@@ -1,7 +1,7 @@
 import { css } from "@emotion/react"
 import { GetStaticProps } from "next"
 import Head from "next/head"
-import TmdbClient, { Movie } from "@/lib/api/tmdbClient"
+import TmdbClient, { Movie, TmdbResponse } from "@/lib/api/tmdbClient"
 import Layout from "@/components/layout"
 import Row from "@/components/layout/Row"
 import SearchBox from "@/components/movies/SearchBox"
@@ -12,7 +12,7 @@ export default function Home({
   movies,
   error = "",
 }: {
-  movies: Movie[]
+  movies: TmdbResponse
   error?: string
 }): JSX.Element {
   return (
@@ -35,7 +35,7 @@ export default function Home({
           <H5>{error}</H5>
         ) : (
           <Row>
-            {movies.map((movie) => (
+            {movies.results.map((movie) => (
               <MovieThumbnail movie={movie} key={movie.id} />
             ))}
           </Row>
@@ -48,7 +48,7 @@ export default function Home({
 export const getStaticProps: GetStaticProps = async () => {
   const tmdbClient = new TmdbClient()
   const data = await tmdbClient.getTrendingMovies()
-  if (!data) {
+  if (!data.results) {
     return {
       props: {
         movies: [],
@@ -58,7 +58,7 @@ export const getStaticProps: GetStaticProps = async () => {
   }
   return {
     props: {
-      movies: data.results,
+      movies: data,
       error: "",
     },
   }
