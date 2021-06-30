@@ -21,7 +21,7 @@ steps:
       - 'managed'
       - '--allow-unauthenticated'
       - '--set-env-vars'
-      - 'TMDB_TOKEN=${_TMDB_TOKEN}, NEXT_PUBLIC_ROOT_URL=${_ROOT_URL} NEXT_PUBLIC_API_URL=${_API_URL}'
+      - 'TMDB_TOKEN=${_TMDB_TOKEN}, NEXT_PUBLIC_ROOT_URL=${_WEB_URL}, NEXT_PUBLIC_API_URL=${_API_URL}'
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args: 
