@@ -12,6 +12,9 @@ RUN yarn install --frozen-lockfile
 ##########################
 FROM node:14-alpine AS BUILD_IMAGE
 
+ENV NEXT_PUBLIC_ROOT_URL "$ROOT_URL"
+ENV NEXT_PUBLIC_API_URL "$API_URL"
+
 WORKDIR /app
 
 # Copy dependencies from previous image
