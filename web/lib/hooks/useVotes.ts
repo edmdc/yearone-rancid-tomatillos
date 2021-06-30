@@ -1,5 +1,6 @@
 import useSWR, { mutate } from "swr"
-import fetcher from "../utils/fetcher"
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 const useVotes = (movieId: string) => {
   let errorCatch: string
@@ -7,6 +8,8 @@ const useVotes = (movieId: string) => {
     `${process.env.NEXT_PUBLIC_API_URL}/v1/ratings/${movieId}`,
     fetcher,
   )
+
+  console.log(process.env.NEXT_PUBLIC_API_URL)
 
   const voteOnMovie = async (vote: "upvote" | "downvote") => {
     try {
