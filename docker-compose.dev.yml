@@ -13,11 +13,11 @@ services:
       - /app/.next
     environment:
       TMDB_TOKEN: "${TMDB_TOKEN}"
+      NEXT_PUBLIC_ROOT_URL: "${ROOT_URL}"
+      NEXT_PUBLIC_API_URL: "${API_URL}"
     restart: on-failure
     links:
       - api
-    networks:
-      - yearone_dev_network
   api:
     container_name: api_dev
     build: 
@@ -35,8 +35,6 @@ services:
     restart: always
     links:
       - mongodb
-    networks:
-      - yearone_dev_network
   mongodb:
     container_name: mongodb_dev
     image: mongo:latest
@@ -48,10 +46,5 @@ services:
       MONGO_INITDB_ROOT_USERNAME: "${MONGO_INITDB_ROOT_USERNAME}"
       MONGO_INITDB_ROOT_PASSWORD: "${MONGO_INITDB_ROOT_PASSWORD}"
       MONGO_INITDB_ROOT_DATABASE: "${MONGO_INITDB_ROOT_DATABASE}"
-    networks:
-      - yearone_dev_network
 volumes:
   mongo:
-networks:
-  yearone_dev_network:
-    driver: bridge
