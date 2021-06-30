@@ -25,7 +25,7 @@ func LoadEnv() *Settings {
 
 	mongoCluster := os.Getenv("MONGO_CLUSTER")
 	if mongoCluster == "" {
-		log.Fatal("Could not find MONGO_HOST in environment")
+		log.Fatal("Could not find MONGO_CLUSTER in environment")
 	}
 
 	mongoDbName := os.Getenv("MONGO_DATABASE")
