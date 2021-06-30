@@ -15,7 +15,6 @@ import Credits from "@/components/movies/Credits"
 import { H2, H4 } from "@/styles/typography"
 import TmdbClient, { Movie } from "@/lib/api/tmdbClient"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
 import useVotes from "@/lib/hooks/useVotes"
 
 type Errors = {
@@ -39,14 +38,6 @@ export default function SingleMovieModal({ movie, errors }: SingleMovieProps) {
   const router = useRouter()
   const { movieId } = router.query
   const { votes, upVote, downVote } = useVotes(String(movieId))
-  const [voteError, setError] = useState("")
-
-  useEffect(() => {
-    if (voteError !== "") {
-      alert(voteError)
-      setError("")
-    }
-  }, [voteError])
 
   return (
     <Layout>
