@@ -48,7 +48,7 @@ export default function Home({
 export const getStaticProps: GetStaticProps = async () => {
   const tmdbClient = new TmdbClient()
   const data = await tmdbClient.getTrendingMovies()
-  if (!data.results) {
+  if (!data) {
     return {
       props: {
         movies: [],
