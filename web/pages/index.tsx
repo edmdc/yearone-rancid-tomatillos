@@ -46,20 +46,21 @@ export default function Home({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const tmdbClient = new TmdbClient()
-  const data = await tmdbClient.getTrendingMovies()
-  if (!data.results) {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/trending`)
+    const data = await res.json()
+    return {
+      props: {
+        movies: data,
+        error: "",
+      },
+    }
+  } catch (error) {
     return {
       props: {
         movies: [],
         error: "Something went wrong. Could not load resources.",
       },
     }
-  }
-  return {
-    props: {
-      movies: data,
-      error: "",
-    },
   }
 }
