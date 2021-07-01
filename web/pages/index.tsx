@@ -7,6 +7,8 @@ import Row from "@/components/layout/Row"
 import SearchBox from "@/components/movies/SearchBox"
 import MovieThumbnail from "@/components/movies/Thumbnail"
 import { H4, H5 } from "@/styles/typography"
+import fetcher from "@/lib/utils/fetcher"
+import useSWR from "swr"
 
 export default function Home({
   movies,
@@ -15,6 +17,12 @@ export default function Home({
   movies: TmdbResponse
   error?: string
 }): JSX.Element {
+  const { data } = useSWR(
+    () => (error !== "" ? "/api/trending" : null),
+    fetcher,
+    { initialData: movies },
+  )
+
   return (
     <Layout>
       <Head>
@@ -35,7 +43,7 @@ export default function Home({
           <H5>{error}</H5>
         ) : (
           <Row>
-            {movies.results.map((movie) => (
+            {data?.results.map((movie: Movie) => (
               <MovieThumbnail movie={movie} key={movie.id} />
             ))}
           </Row>
@@ -58,7 +66,7 @@ export const getStaticProps: GetStaticProps = async () => {
   } catch (error) {
     return {
       props: {
-        movies: [],
+        movies: {},
         error: "Something went wrong. Could not load resources.",
       },
     }
