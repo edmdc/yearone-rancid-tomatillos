@@ -12,14 +12,13 @@ RUN yarn install --frozen-lockfile
 ##########################
 FROM node:14-alpine AS BUILD_IMAGE
 
-ENV NEXT_PUBLIC_ROOT_URL "$ROOT_URL"
-ENV NEXT_PUBLIC_API_URL "$API_URL"
-
 WORKDIR /app
 
 # Copy dependencies from previous image
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+ENV NEXT_PUBLIC_ROOT_URL "$ROOT_URL"
+ENV NEXT_PUBLIC_API_URL "$API_URL"
 RUN yarn build
 
 # Remove all the development dependencies since we don't
@@ -32,6 +31,8 @@ RUN yarn install --production --frozen-lockfile --ignore-scripts --prefer-offlin
 ##############################
 FROM node:14-alpine
 
+ENV NEXT_PUBLIC_ROOT_URL "$ROOT_URL"
+ENV NEXT_PUBLIC_API_URL "$API_URL"
 ENV NODE_ENV production
 ENV PORT 8080
 
