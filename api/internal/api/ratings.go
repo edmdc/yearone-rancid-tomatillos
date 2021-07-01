@@ -26,7 +26,7 @@ func (a App) GetMovieRating(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		errRes, _ := json.Marshal(err)
-		w.WriteHeader(err.Status)
+		w.WriteHeader(http.StatusNoContent)
 		w.Write(errRes)
 	}
 
