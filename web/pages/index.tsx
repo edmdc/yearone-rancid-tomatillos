@@ -10,18 +10,8 @@ import { H4, H5 } from "@/styles/typography"
 import fetcher from "@/lib/utils/fetcher"
 import useSWR from "swr"
 
-export default function Home({
-  movies,
-  error = "",
-}: {
-  movies: TmdbResponse
-  error?: string
-}): JSX.Element {
-  const { data } = useSWR(
-    () => (error !== "" ? "/api/trending" : null),
-    fetcher,
-    { initialData: movies },
-  )
+export default function Home(): JSX.Element {
+  const { data, error } = useSWR("/api/trending", fetcher)
 
   return (
     <Layout>
@@ -39,7 +29,7 @@ export default function Home({
         `}
       >
         <H4>Trending</H4>
-        {error ? (
+        {!data?.results ? (
           <H5>{error}</H5>
         ) : (
           <Row>
@@ -51,24 +41,4 @@ export default function Home({
       </div>
     </Layout>
   )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/trending`)
-    const data = await res.json()
-    return {
-      props: {
-        movies: data,
-        error: "",
-      },
-    }
-  } catch (error) {
-    return {
-      props: {
-        movies: {},
-        error: "Something went wrong. Could not load resources.",
-      },
-    }
-  }
 }
