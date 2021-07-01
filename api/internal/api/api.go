@@ -22,6 +22,7 @@ type App struct {
 }
 
 func New(config *config.Settings, client *mongo.Client) *App {
+  webUrl := os.Getenv("WEB_URL")
 	r := chi.NewRouter()
 
 	// A good base middleware stack
@@ -32,7 +33,7 @@ func New(config *config.Settings, client *mongo.Client) *App {
 	r.Use(middleware.Timeout(60 * time.Second))
 
 	r.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:8080"},
+		AllowedOrigins:   []string{webUrl},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
