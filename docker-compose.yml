@@ -32,6 +32,7 @@ services:
       MONGO_PASSWORD: "${MONGO_INITDB_ROOT_PASSWORD}"
       MONGO_DATABASE: "${MONGO_INITDB_ROOT_DATABASE}"
       MONGO_CLUSTER: "${MONGO_CLUSTER}"
+      WEB_URL: "${ROOT_URL}"
     restart: always
     links:
       - mongodb
