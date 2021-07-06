@@ -22,7 +22,7 @@ type App struct {
 }
 
 func New(config *config.Settings, client *mongo.Client) *App {
-  webUrl := os.Getenv("WEB_URL")
+	webUrl := os.Getenv("WEB_URL")
 	r := chi.NewRouter()
 
 	// A good base middleware stack
@@ -71,11 +71,11 @@ func (a App) ConfigureRoutes() {
 func (a App) Start() {
 	a.ConfigureRoutes()
 
-  port := os.Getenv("PORT")
-  if port == "" {
-    port = "8081"
-  }
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8081"
+	}
 
 	fmt.Println("Starting server at http://localhost:8081")
-  log.Fatalln(http.ListenAndServe(":" + port, a.router))
+	log.Fatalln(http.ListenAndServe(":"+port, a.router))
 }

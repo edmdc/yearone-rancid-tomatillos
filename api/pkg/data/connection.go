@@ -18,13 +18,13 @@ type Connection struct {
 }
 
 func ConnectDb(config *config.Settings) Connection {
-  var prefix string
+	var prefix string
 
-  if strings.Contains(config.DbCluster, "27017") {
-    prefix = "mongodb"
-  } else {
-    prefix = "mongodb+srv"
-  }
+	if strings.Contains(config.DbCluster, "27017") {
+		prefix = "mongodb"
+	} else {
+		prefix = "mongodb+srv"
+	}
 
 	uri := fmt.Sprintf("%s://%s:%s@%s/?w=majority", prefix, config.DbUser, config.DbPassword, config.DbCluster)
 	opts := options.Client().ApplyURI(uri)
