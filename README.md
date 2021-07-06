@@ -1,12 +1,13 @@
 # Rancid Tomatillos - YearOne Challenge
 
-[Production Site](https://rancid-tomatillos-web-v7ekia46ga-uc.a.run.app)
+[Explore the live app.](https://rancid-tomatillos-web-v7ekia46ga-uc.a.run.app)
 
-An full-stack project to search and rate movies using data from The Movie Database.
+A full-stack project to search and rate movies using data from [The Movie Database](https://www.themoviedb.org/)
+created as a take-home challenge for [YearOne](https://www.joinyearone.io/), a community I joined
+as a recent Front-End graduate of [Turing School of Software and Design](https://turing.edu/).
 
-This project was created as a take home challenge for [YearOne](https://www.joinyearone.io/),
-a community I joined as recent Front-End graduate of [Turing School of Software and Design](https://turing.edu/).
-As a developer who's fairly confident I viewed this challenge as an opportunity to solidify my working knowledge of the Golang language and back-end development.
+After solidifying my knowledge of front-end development over the last year, I viewed this challenge
+as an opportunity to solidify my full-stack skills and begin exploring DevOps concepts and tools.
 
 ## Requirements
 
@@ -15,7 +16,8 @@ As a developer who's fairly confident I viewed this challenge as an opportunity 
 
 ## Setup
 
-In a new terminal window navigate to the parent directory you wish to clone code to and run the following commands
+In a new terminal window navigate to the parent directory you wish to clone code to and
+run the following commands
 
 - Clone code to local machine
 
@@ -40,16 +42,15 @@ mkdir mongo
 - **Build and start development containers as background process**
 
 ```zsh
-# Web container with HMR will start on http://localhost:8080
-# Api container with Live Reloading will start on http://localhost:8081
+# Web container with hot module reloading can be accessed on http://localhost:8080
+# Api container with live reloading can be accessed on http://localhost:8081
 
 make dev
 
 # Docker command equivalent
-
 docker compose up --build -d
 
-# Use the command above without -d flag to output logs to current terminal window
+# Use the docker command above without -d flag to output logs to current terminal window
 ```
 
 - **End background processes**
@@ -90,13 +91,71 @@ docker builder prune
 
 ## Technology Stack
 
+### [Docker](https://www.docker.com/)
+
+Docker, written in Go, is omnipresent when developing for the cloud. Its role cannot be understated,
+so learning the basics was a no-brainer choice and my main goal with this project.
+
+In previous projects, I used a prebuilt Serverless Component to deploy a NextJS front-end to
+AWS. The simple configuration of this component is ideal for a simple, solo project. However,
+it presents some limitations as a project grows. It does not address the need for a consistent
+development environment across team members and into production. The added abstraction also
+complicates the creation of a build pipeline for automated deployments. I faced these issues
+building out a codebase during a fellowship at a young start-up where I was one of two front-end
+developers. While there, I took the responsibility of managing deployments. The issues above
+created an inconsistent, time-consuming deployment process that led to much frustration and my
+desire to equip myself with the knowledge to prevent this in the future.
+
+Enter Docker... Docker is an open-source project that simplifies development by packaging software
+into containers. Containers are a standardized unit of software based on the Linux kernel. They
+package application source code with operating system libraries and dependencies that allow the
+application to run the same in any environment. Docker did not invent containers, but they did help
+simplify their use, making it the industry standard for application containerization. Their comprehensive
+platform allows developers to speed up development, easily share code, and run applications securely.
+
 ### Front-end
 
-- [NextJs](https://nextjs.org/)
-- [Emotion CSS-in-JS](https://emotion.sh/docs/introduction)
+#### [NextJs](https://nextjs.org/)
+
+NextJS is my preferred React implementation because it's production-ready out the box. Some
+of my favorite features include, but are not limited to, Typescript support, image optimization,
+hybrid Static Site Generation / Server Side Rendering, and File-system Routing.
+
+#### [Emotion CSS-in-JS](https://emotion.sh/docs/introduction)
+
+I opted to use Emotion CSS-in-JS for its built-in theming API that allows for the straightforward
+implementation of a style system. The encapsulation of styles to individual components makes them
+easy to maintain. I've used TailwindCSS in the past, and though I like the concept of utility classnames,
+I have found that the long classname strings make code challenging to format, read, and maintain.
 
 ### Back-end
 
-- [Golang](https://golang.org/)
-- [Chi router](https://golang.org/)
-- [Mongodb](https://www.mongodb.com/)
+#### [Golang](https://golang.org/)
+
+I chose to learn Go because great minds in computer science, like Ken Thompson, Rob Pike,
+and Robert Griesemer, designed it for modern, networked machines. Go is easy to learn and maintain
+because it has simple, idiomatic solutions to common problems creating consistent use cases.
+It's statically typed and has built-in features that simplify development over Node.js. For example,
+the compiler doubles as a code linter and `go fmt` formats project code, eliminating the need to
+choose and configure packages like ESlint and prettier.
+
+#### [Mongodb](https://www.mongodb.com/)
+
+MongoDB is a document database that uses JSON to describe data rather than tables (NoSQL). JSON is
+an intuitive way to store and retrieve complex data that allows for a flexible schema. The
+flexibility and simplicity of storing data in MongoDB make it my go-to database choice for personal
+projects.
+
+### Honorary Mentions
+
+#### [GraphQL](https://www.apollographql.com/)
+
+##### _Not used in this project_
+
+I'm a big fan of GraphQL as the new paradigm of API development. I've used the Apollo GraphQL
+platform in multiple projects and consider it one of my more advanced skills. I like that the
+client-side implementation has built-in state management that's intuitive to use. It's also helpful
+to have a single endpoint for back-end services as a project grows. However, this project has
+a limited amount of endpoints and is straightforward enough to accomplish without it. Choosing to
+omit GraphQL also allowed me to focus on learning the basics of Go without the added complexity on
+the server.
