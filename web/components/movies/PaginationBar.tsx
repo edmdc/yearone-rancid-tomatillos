@@ -1,3 +1,4 @@
+import { Fragment } from "react"
 import Link from "next/link"
 import styled from "@emotion/styled"
 import { useRouter } from "next/router"
@@ -109,28 +110,28 @@ export default function PaginationBar({
       {pageNumbers().map((page) => {
         if (page === LEFT_PAGE)
           return (
-            <>
+            <Fragment key="backward">
               <Link href={`/search/${query}/${currentPage - 3}`} passHref>
                 <PageCell>&laquo;</PageCell>
               </Link>
               <Link href={`/search/${query}/${currentPage - 1}`} passHref>
                 <PageCell>&lt;</PageCell>
               </Link>
-            </>
+            </Fragment>
           )
         if (page === RIGHT_PAGE)
           return (
-            <>
+            <Fragment key="forward">
               <Link href={`/search/${query}/${currentPage + 1}`} passHref>
                 <PageCell>&gt;</PageCell>
               </Link>
               <Link href={`/search/${query}/${currentPage + 3}`} passHref>
                 <PageCell>&raquo;</PageCell>
               </Link>
-            </>
+            </Fragment>
           )
         return (
-          <Link href={`/search/${query}/${page}`} passHref>
+          <Link href={`/search/${query}/${page}`} passHref key={page}>
             <PageCell selected={currentPage === page}>{page}</PageCell>
           </Link>
         )
