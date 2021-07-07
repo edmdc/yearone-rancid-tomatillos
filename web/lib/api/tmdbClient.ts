@@ -50,12 +50,6 @@ export interface TmdbResponse {
   total_results?: number
 }
 
-export const tmdbAxios = axios.create({
-  baseURL: "https://api.themoviedb.org/3",
-  timeout: 1200,
-  headers: { Authorization: `Bearer ${process.env.TMDB_TOKEN}` },
-})
-
 export default class TmdbClient {
   client: AxiosInstance
 
