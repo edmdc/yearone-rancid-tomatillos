@@ -3,9 +3,9 @@ import { useRouter } from "next/router"
 import { css } from "@emotion/react"
 import styled from "@emotion/styled"
 import { Movie } from "@/lib/api/tmdbClient"
+import imgPath from "@/lib/utils/imgPath"
 import ImgFallback from "./ImgFallback"
 import { RightChevron } from "../icons"
-import imgPath from "@/lib/utils/imgPath"
 
 export const Thumbnail = styled.article`
   position: relative;
