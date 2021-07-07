@@ -1,10 +1,10 @@
-import styled from '@emotion/styled'
-import { H2 } from '../../styles/typography'
+import styled from "@emotion/styled"
+import { H2 } from "../../styles/typography"
 
 type MovieContainerProps = {
   backDropUrl: string
 }
-const rootBackdropPath = 'https://image.tmdb.org/t/p/w1280'
+const rootBackdropPath = "https://image.tmdb.org/t/p/w1280"
 
 export const MovieContainer = styled.section<MovieContainerProps>`
   display: grid;
@@ -13,7 +13,7 @@ export const MovieContainer = styled.section<MovieContainerProps>`
   margin: 4rem auto;
   padding: 3rem 4rem;
   justify-content: space-between;
-  box-shadow: 12px 12px 24px #cccccc, -12px -12px 24px #f4f4f4;
+  box-shadow: 12px 12px 24px #9c9c9c, -12px -12px 24px #fcfcfc;
   border-radius: 2rem;
   backdrop-filter: blur(12px);
   color: white;
@@ -46,7 +46,7 @@ export const MovieTitle = styled.div`
   flex-flow: column;
   ${H2} {
     span {
-      color: ${(props) => props.theme.colors.gray['400']};
+      color: ${(props) => props.theme.colors.gray["400"]};
       font-weight: 500;
       font-size: 3.6rem;
       margin-left: 1.6rem;
@@ -62,7 +62,7 @@ export const MovieText = styled.p`
   font-size: 1.6rem;
   line-height: 2.4rem;
   font-weight: 400;
-  color: ${(props) => props.theme.colors.gray['100']};
+  color: ${(props) => props.theme.colors.gray["100"]};
 `
 
 export const Tagline = styled.p`
@@ -70,5 +70,5 @@ export const Tagline = styled.p`
   line-height: 2.7;
   font-style: italic;
   margin: 0;
-  color: ${(props) => props.theme.colors.gray['300']};
+  color: ${(props) => props.theme.colors.gray["300"]};
 `

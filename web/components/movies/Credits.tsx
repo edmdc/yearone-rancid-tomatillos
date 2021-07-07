@@ -17,8 +17,14 @@ const Category = styled.article`
   width: 48%;
 `
 
-const Table = styled.div`
+const CreditColumn = styled.div`
   width: 100%;
+  height: 88rem;
+  overflow-y: hidden;
+
+  :hover {
+    overflow-y: scroll;
+  }
 `
 
 const Credits = ({ movieId }: { movieId: string }) => {
@@ -28,7 +34,7 @@ const Credits = ({ movieId }: { movieId: string }) => {
     <CreditsWrapper>
       <Category>
         <H4>Cast</H4>
-        <Table>
+        <CreditColumn>
           {cast?.map((member: Cast) => (
             <CreditRow
               key={member.cast_id}
@@ -38,11 +44,11 @@ const Credits = ({ movieId }: { movieId: string }) => {
               oddHighlight
             />
           ))}
-        </Table>
+        </CreditColumn>
       </Category>
       <Category>
         <H4>Crew</H4>
-        <Table>
+        <CreditColumn>
           {crew?.map((member: Crew) => (
             <CreditRow
               key={member.credit_id}
@@ -51,7 +57,7 @@ const Credits = ({ movieId }: { movieId: string }) => {
               role={member.job}
             />
           ))}
-        </Table>
+        </CreditColumn>
       </Category>
     </CreditsWrapper>
   )

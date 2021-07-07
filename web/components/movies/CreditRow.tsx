@@ -4,7 +4,7 @@ import styled from "@emotion/styled"
 import { css } from "@emotion/react"
 import { ProfileIcon } from "@/components/icons"
 
-interface TableRowProps extends React.HTMLProps<HTMLTableRowElement> {
+interface RowProps extends React.HTMLProps<HTMLDivElement> {
   odd?: boolean
 }
 
@@ -24,7 +24,7 @@ const ImgFallbackWrapper = styled.div`
   border-radius: 0.5rem;
 `
 
-const TableRow = styled.div<TableRowProps>`
+const RowWrapper = styled.div<RowProps>`
   display: grid;
   grid-template-columns: 0.5fr 2fr 2fr;
   background-color: ${(props) => props.theme.colors.gray["50"]};
@@ -38,7 +38,7 @@ const TableRow = styled.div<TableRowProps>`
 
   ${ImageWrapper},
   ${ImgFallbackWrapper},
-  p {
+  span {
     display: flex;
     align-items: center;
   }
@@ -60,7 +60,7 @@ const CreditRow = ({
   const imgRootPath = imgPath("profile", 1)
 
   return (
-    <TableRow odd={oddHighlight}>
+    <RowWrapper odd={oddHighlight}>
       {profileImgPath ? (
         <ImageWrapper>
           <Image
@@ -79,19 +79,15 @@ const CreditRow = ({
           <ProfileIcon />
         </ImgFallbackWrapper>
       )}
-      <p>
-        <span
-          css={css`
-            margin-left: 1rem;
-          `}
-        >
-          {name}
-        </span>
-      </p>
-      <p>
-        <span>{role}</span>
-      </p>
-    </TableRow>
+      <span
+        css={css`
+          margin-left: 1rem;
+        `}
+      >
+        {name}
+      </span>
+      <span>{role}</span>
+    </RowWrapper>
   )
 }
 
