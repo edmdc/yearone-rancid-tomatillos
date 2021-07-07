@@ -12,7 +12,7 @@ import {
 } from "@/components/movies/MovieDetails"
 import Ratings from "@/components/movies/Ratings"
 import Credits from "@/components/movies/Credits"
-import { H2, H4 } from "@/styles/typography"
+import { H2, H3 } from "@/styles/typography"
 import TmdbClient, { Movie } from "@/lib/api/tmdbClient"
 import { useRouter } from "next/router"
 import useVotes from "@/lib/hooks/useVotes"
@@ -73,7 +73,7 @@ export default function SingleMovieModal({ movie, errors }: SingleMovieProps) {
           />
           {errors?.ratings && <span>{errors.ratings}</span>}
           <Tagline>{movie?.tagline}</Tagline>
-          <H4>Overview</H4>
+          <H3>Overview</H3>
           <MovieText>{movie?.overview}</MovieText>
         </MovieInfo>
       </MovieContainer>
