@@ -1,10 +1,12 @@
 import { iconColors } from "@/styles/icons"
 import { css, useTheme } from "@emotion/react"
 
-const NoImageIcon = () => {
+const NoImageIcon = ({ movieTitle }: { movieTitle: string }) => {
   const theme = useTheme()
   return (
     <div
+      role="img"
+      aria-label={`No poster found for ${movieTitle}`}
       css={css`
         height: 100%;
         width: 15rem;

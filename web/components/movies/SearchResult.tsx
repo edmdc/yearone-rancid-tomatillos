@@ -10,7 +10,7 @@ import { NoImageIcon } from "../icons"
 const ResultWrapper = styled.div`
   position: relative;
   display: flex;
-  height: 21rem;
+  height: 24rem;
   width: 100%;
   border: 0.2rem solid ${(props) => props.theme.colors.gray["300"]};
   border-radius: 1rem;
@@ -45,25 +45,33 @@ const formatDescription = (str: string) => {
   return description.join(" ")
 }
 
+const rootImgSrc = "https://image.tmdb.org/t/p/w185"
+
 const SearchResult = ({ movie }: { movie: Movie }) => {
   const router = useRouter()
-  const rootImgSrc = "https://image.tmdb.org/t/p/w185"
   return (
     <ResultWrapper onClick={() => router.push(`/movie/${movie.id}`)}>
       {movie?.poster_path ? (
-        <Image
-          src={rootImgSrc + movie.poster_path}
-          alt={`Poster for ${movie.title}`}
-          width={150}
-          height={180}
+        <div
           css={css`
-            position: absolute;
-            z-index: 2;
-            border-radius: 0.8rem 0 0 0.8rem;
+            position: relative;
+            width: 30%;
           `}
-        />
+        >
+          <Image
+            src={rootImgSrc + movie.poster_path}
+            alt={`Poster for ${movie.title}`}
+            layout="fill"
+            objectFit="contain"
+            css={css`
+              position: absolute;
+              z-index: 2;
+              border-radius: 0.8rem 0 0 0.8rem;
+            `}
+          />
+        </div>
       ) : (
-        <NoImageIcon />
+        <NoImageIcon movieTitle={movie.title} />
       )}
       <ResultContent>
         <H5>{movie.title}</H5>
