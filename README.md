@@ -1,13 +1,13 @@
 # Rancid Tomatillos - YearOne Challenge
 
-[Explore the live app.](https://rancid-tomatillos-web-v7ekia46ga-uc.a.run.app)
+This application is deployed to the Google Cloud Platform - [Explore it here.](https://rancid-tomatillos-web-v7ekia46ga-uc.a.run.app)
 
 A full-stack project to search and rate movies using data from [The Movie Database](https://www.themoviedb.org/)
 created as a take-home challenge for [YearOne](https://www.joinyearone.io/), a community I joined
 as a recent Front-End graduate of [Turing School of Software and Design](https://turing.edu/).
 
 After solidifying my knowledge of front-end development over the last year, I viewed this challenge
-as an opportunity to solidify my full-stack skills and begin exploring DevOps concepts and tools.
+as an opportunity to solidify my full-stack skills, explore a new language, DevOps concepts and tools.
 
 ## Requirements
 
@@ -16,8 +16,8 @@ as an opportunity to solidify my full-stack skills and begin exploring DevOps co
 
 ## Setup
 
-In a new terminal window navigate to the parent directory you wish to clone code to and
-run the following commands
+In a new terminal window navigate to the parent directory you wish to clone the code into
+and run the following commands
 
 - Clone code to local machine
 
@@ -27,17 +27,20 @@ run the following commands
 git clone git@github.com:edmdc/yearone-rancid-tomatillos.git
 ```
 
-- Navigate to directory and create a directory for Mongodb container volume
+- Navigate into project directory and create a new directory
+  for the Mongodb container volume
 
 ```zsh
 cd yearone-rancid-tomatillos
 mkdir mongo
 
 # The mongo directory will be used by Docker to persist database container data
-
 ```
 
 ## Commands
+
+- Make sure that Docker desktop is running in the
+  background before running any of the following commands.
 
 - **Build and start development containers as background process**
 
@@ -102,16 +105,24 @@ it presents some limitations as a project grows. It does not address the need fo
 development environment across team members and into production. The added abstraction also
 complicates the creation of a build pipeline for automated deployments. I faced these issues
 building out a codebase during a fellowship at a young start-up where I was one of two front-end
-developers. While there, I took the responsibility of managing deployments. The issues above
-created an inconsistent, time-consuming deployment process that led to much frustration and my
-desire to equip myself with the knowledge to prevent this in the future.
+developers. While there, I took the responsibility of managing front-end deployments and quickly
+realized I lacked the knowledge to make it a frictionless process. Intent on filling this knowledge
+gap, I began to explore Docker.
 
-Enter Docker... Docker is an open-source project that simplifies development by packaging software
+Docker is an open-source project that simplifies development by packaging software
 into containers. Containers are a standardized unit of software based on the Linux kernel. They
 package application source code with operating system libraries and dependencies that allow the
 application to run the same in any environment. Docker did not invent containers, but they did help
 simplify their use, making it the industry standard for application containerization. Their comprehensive
 platform allows developers to speed up development, easily share code, and run applications securely.
+
+### [Google Cloud Platform (GCP)](https://cloud.google.com/why-google-cloud)
+
+Exploring Docker allowed me the flexibility to choose a cloud provider of my own. AWS provided a solid introduction
+to cloud technologies; however, I wanted to expand my knowledge by exploring a new provider. Both Google and Microsoft
+have done plenty to progress internet technologies and have made plenty of contributions to the open-source community.
+Given that their services are more or less equal, it became a question of company values. I chose GCP because its upfront
+about its sustainability goals and considers this commitment a feature worth mentioning.
 
 ### Front-end
 
