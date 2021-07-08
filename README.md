@@ -92,6 +92,10 @@ docker builder prune
 
 ![data-persist](https://user-images.githubusercontent.com/60306770/124326062-6f397a00-db4b-11eb-9759-faa85abbd401.gif)
 
+#### Lighthouse Score
+
+![Lighthouse Score](<https://user-images.githubusercontent.com/60306770/124847667-f9754a00-df60-11eb-9fe2-a39ae584b2e1.png)
+
 ## Technology Stack
 
 ### [Docker](https://www.docker.com/)
