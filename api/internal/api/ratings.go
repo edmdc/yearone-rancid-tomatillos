@@ -26,8 +26,9 @@ func (a App) GetMovieRating(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		errRes, _ := json.Marshal(err)
-		w.WriteHeader(http.StatusNoContent)
+		w.WriteHeader(http.StatusNotFound)
 		w.Write(errRes)
+		return
 	}
 
 	res, _ := json.Marshal(rating)
@@ -44,6 +45,7 @@ func (a App) UpvoteMovie(w http.ResponseWriter, r *http.Request) {
 		errRes, _ := json.Marshal(err)
 		w.WriteHeader(err.Status)
 		w.Write(errRes)
+		return
 	}
 
 	res, _ := json.Marshal(rating)
@@ -60,6 +62,7 @@ func (a App) DownvoteMovie(w http.ResponseWriter, r *http.Request) {
 		errRes, _ := json.Marshal(err)
 		w.WriteHeader(err.Status)
 		w.Write(errRes)
+		return
 	}
 
 	res, _ := json.Marshal(rating)

@@ -40,7 +40,7 @@ func (s RatingService) FindMovieRating(tmdbId int) (*domain.Rating, *models.Erro
 		return nil, &models.Error{
 			Status:  http.StatusNotFound,
 			Name:    "NOT_FOUND",
-			Message: "No rating exists for this movie",
+			Message: "No rating exists for this movie title",
 		}
 	}
 
@@ -53,8 +53,8 @@ func (s RatingService) VoteOnMovie(tmdbId int, vote string) (*domain.Rating, *mo
 	if err != nil {
 		return nil, &models.Error{
 			Status:  http.StatusInternalServerError,
-			Name:    "SERVER_ERROR",
-			Message: "Something went wrong.",
+			Name:    "SERVICE_UNAVAILABLE",
+			Message: "Something went wrong. Could not query database.",
 			Error:   err,
 		}
 	}
@@ -71,9 +71,9 @@ func (s RatingService) VoteOnMovie(tmdbId int, vote string) (*domain.Rating, *mo
 
 		if err != nil {
 			return nil, &models.Error{
-				Status:  http.StatusInternalServerError,
-				Name:    "SERVER_ERROR",
-				Message: "Failed to insert new movie rating",
+				Status:  http.StatusServiceUnavailable,
+				Name:    "SERVICE_UNAVAILABLE",
+				Message: "Failed to create a new movie rating.",
 				Error:   err,
 			}
 		}
@@ -85,8 +85,8 @@ func (s RatingService) VoteOnMovie(tmdbId int, vote string) (*domain.Rating, *mo
 
 		if err != nil {
 			return nil, &models.Error{
-				Status:  http.StatusInternalServerError,
-				Name:    "SERVER_ERROR",
+				Status:  http.StatusServiceUnavailable,
+				Name:    "SERVICE_UNAVAILABLE",
 				Message: "Failed to update movie rating",
 				Error:   err,
 			}
@@ -98,8 +98,8 @@ func (s RatingService) VoteOnMovie(tmdbId int, vote string) (*domain.Rating, *mo
 
 		if err != nil {
 			return nil, &models.Error{
-				Status:  http.StatusInternalServerError,
-				Name:    "SERVER_ERROR",
+				Status:  http.StatusServiceUnavailable,
+				Name:    "SERVICE_UNAVAILABLE",
 				Message: "Failed to update movie rating",
 				Error:   err,
 			}
