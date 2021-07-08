@@ -94,7 +94,7 @@ docker builder prune
 
 #### Lighthouse Score
 
-![Lighthouse Score](<https://user-images.githubusercontent.com/60306770/124847667-f9754a00-df60-11eb-9fe2-a39ae584b2e1.png)
+![Lighthouse Score](https://user-images.githubusercontent.com/60306770/124847667-f9754a00-df60-11eb-9fe2-a39ae584b2e1.png)
 
 ## Technology Stack
 
